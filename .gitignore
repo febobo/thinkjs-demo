@@ -10,7 +10,6 @@ tags
 .tags*
 *bower_components*
 *node_modules*
-*development*
 #vim
 *.un~
 *.swp*
