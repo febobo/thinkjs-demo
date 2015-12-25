@@ -1,6 +1,8 @@
 "use strict";var _inherits = require("babel-runtime/helpers/inherits")["default"];var _classCallCheck = require("babel-runtime/helpers/class-call-check")["default"];var _regeneratorRuntime = require("babel-runtime/regenerator")["default"];var _getIterator = require("babel-runtime/core-js/get-iterator")["default"];var _interopRequireDefault = require("babel-runtime/helpers/interop-require-default")["default"];exports.__esModule = true;var _baseJs = require(
 
-"./base.js");var _baseJs2 = _interopRequireDefault(_baseJs);var _default = (function (_Base) {_inherits(_default, _Base);function _default() {_classCallCheck(this, _default);_Base.apply(this, arguments);}
+"./base.js");var _baseJs2 = _interopRequireDefault(_baseJs);var _wechatOauth = require(
+'wechat-oauth');var _wechatOauth2 = _interopRequireDefault(_wechatOauth);var _default = (function (_Base) {_inherits(_default, _Base);function _default() {_classCallCheck(this, _default);_Base.apply(this, arguments);}
+
 
 
 	/**
@@ -76,5 +78,21 @@
 		info, 
 
 
+
+
 		datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();context$2$0.next = 3;return _regeneratorRuntime.awrap(this.session('userInfo'));case 3:userInfo = context$2$0.sent;console.log('userInfo', userInfo); // if(!userInfo) this.fail('请先关注');
-					context$2$0.next = 7;return _regeneratorRuntime.awrap(think.isNumber(data.score));case 7:if (context$2$0.sent) {context$2$0.next = 9;break;}this.fail('参数不正确');case 9:model = this.model('user');if (!data.type) {context$2$0.next = 15;break;}context$2$0.next = 13;return _regeneratorRuntime.awrap(model.where({ id: 50 }).find());case 13:info = context$2$0.sent;data.score += info.user_score;case 15:context$2$0.next = 17;return _regeneratorRuntime.awrap(model.where({ id: 50 }).update({ user_score: data.score }));case 17:datas = context$2$0.sent;this.success('记分成功');case 19:case "end":return context$2$0.stop();}}, null, this);};return _default;})(_baseJs2["default"]);exports["default"] = _default;module.exports = exports["default"];
+					context$2$0.next = 7;return _regeneratorRuntime.awrap(think.isNumber(data.score));case 7:if (context$2$0.sent) {context$2$0.next = 9;break;}this.fail('参数不正确');case 9:model = this.model('user');if (!data.type) {context$2$0.next = 15;break;}context$2$0.next = 13;return _regeneratorRuntime.awrap(model.where({ id: 50 }).find());case 13:info = context$2$0.sent;data.score += info.user_score;case 15:context$2$0.next = 17;return _regeneratorRuntime.awrap(model.where({ id: 50 }).
+					update({ 
+						user_score: data.score }));case 17:datas = context$2$0.sent;
+
+					this.success('记分成功');case 19:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+
+
+	userinfoAction = function userinfoAction() {var 
+
+		client, 
+		url;return _regeneratorRuntime.async(function userinfoAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:console.log(_wechatOauth2["default"]);client = new _wechatOauth2["default"]('wx9f3f09b145491ade', '88e31eaf4afeadbffae3a34c8363bd6a');url = client.getAuthorizeURL('http://www.7758a.com/', 'state', 'snsapi_base');
+					this.redirect(url);
+
+					// this.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f3f09b145491ade&redirect_uri=http://www.7758a.com/&response_type=code&scope=snsapi_base&state=123#wechat_redirect')
+					this.success(url);case 5:case "end":return context$2$0.stop();}}, null, this);};return _default;})(_baseJs2["default"]);exports["default"] = _default;module.exports = exports["default"];
