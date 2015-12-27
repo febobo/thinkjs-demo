@@ -70,7 +70,7 @@ export default class extends Base {
 		let data = this.post();
 		let userInfo = await this.session('userInfo');
 		// if(!userInfo) this.fail('请先关注');
-		if (!await think.isNumber(data.score)) this.fail('参数不正确');
+        if (!await think.isNumber(data.score * 1)) this.fail('参数不正确');
 		let model = this.model('user');
 		if (data.type) {
 			let info = await model.where({
@@ -91,13 +91,16 @@ export default class extends Base {
 		let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
         let openid;
         let userInfo;
-        client.getAccessToken(data.code, function (err, result) {
+        await client.getAccessToken(data.code, function (err, result) {
           var accessToken = result.data.access_token;
           openid = result.data.openid;
+          console.log(result)
+          client.getUser(openid, function (err, result) {
+             userInfo = result;
+             think.session = userInfo;
+          });
         });
-        client.getUser(openid, function (err, result) {
-          userInfo = result;
-        });
+        this.redirect('http://www.7758a.com')
         this.success({userinfo : userInfo})
     }
 

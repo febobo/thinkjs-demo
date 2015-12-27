@@ -78,7 +78,7 @@
 
 
 
-		datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();context$2$0.next = 3;return _regeneratorRuntime.awrap(this.session('userInfo'));case 3:userInfo = context$2$0.sent;context$2$0.next = 6;return _regeneratorRuntime.awrap(think.isNumber(data.score));case 6:if (context$2$0.sent) {context$2$0.next = 8;break;}this.fail('参数不正确');case 8:model = this.model('user');if (!data.type) {context$2$0.next = 14;break;}context$2$0.next = 12;return _regeneratorRuntime.awrap(model.where({ id: 50 }).find());case 12:info = context$2$0.sent;data.score += info.user_score;case 14:context$2$0.next = 16;return _regeneratorRuntime.awrap(model.where({ 
+		datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();context$2$0.next = 3;return _regeneratorRuntime.awrap(this.session('userInfo'));case 3:userInfo = context$2$0.sent;context$2$0.next = 6;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 6:if (context$2$0.sent) {context$2$0.next = 8;break;}this.fail('参数不正确');case 8:model = this.model('user');if (!data.type) {context$2$0.next = 14;break;}context$2$0.next = 12;return _regeneratorRuntime.awrap(model.where({ id: 50 }).find());case 12:info = context$2$0.sent;data.score += info.user_score;case 14:context$2$0.next = 16;return _regeneratorRuntime.awrap(model.where({ 
 						id: 50 }).
 					update({ 
 						user_score: data.score }));case 16:datas = context$2$0.sent;
@@ -90,16 +90,18 @@
 		data, 
 		client, 
 		openid, 
-		userInfo;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');openid = undefined;userInfo = undefined;
+		userInfo;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');openid = undefined;userInfo = undefined;context$2$0.next = 6;return _regeneratorRuntime.awrap(
 					client.getAccessToken(data.code, function (err, result) {
 						var accessToken = result.data.access_token;
-						openid = result.data.openid;});
+						openid = result.data.openid;
+						console.log(result);
+						client.getUser(openid, function (err, result) {
+							userInfo = result;
+							think.session = userInfo;});}));case 6:
 
-					client.getUser(openid, function (err, result) {
-						userInfo = result;});
 
-					console.log(data);
-					this.success({ userinfo: openid });case 8:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+					this.redirect('http://www.7758a.com');
+					this.success({ userinfo: userInfo });case 8:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 	userinfoAction = function userinfoAction() {var 
