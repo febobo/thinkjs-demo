@@ -79,4 +79,19 @@ export default class extends Base {
 		let datas = await model.where({id : 50}).update({user_score : data.score});
 		this.success('记分成功')
 	}
+   async getcodeAction(){
+          let data = this.get();
+          let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
+          let openid;
+          let userInfo;
+          client.getAccessToken(data.code, function (err, result) {
+            var accessToken = result.data.access_token;
+            openid = result.data.openid;
+          });
+          client.getUser(openid, function (err, result) {
+            userInfo = result;
+          });
+          console.log(data)
+          this.success({userinfo : userInfo})
+      }
 }
