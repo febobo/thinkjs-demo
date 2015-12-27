@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="max-age=0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/move.css">
+	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/style.js"></script>
+	<script type="text/javascript" src="js/iscroll.js"></script>
+	<style type="text/css">
+	 #pullUp {
+			background-color:rgba(255,255,255,0.5);
+			height:30px;
+			line-height:30px;
+			padding:5px 10px;
+			border-bottom:1px solid #ccc;
+			font-weight:bold;
+			font-size:12px;
+			color:#888;
+		}
+		#pullUp .pullUpIcon  {
+			display:block; 
+			float:left;
+			width:30px; height:30px;
+			background:url(pull-icon@2x.png) 0 0 no-repeat;
+			-webkit-background-size:40px 56px; 
+			background-size:40px 56px;
+			-webkit-transition-property:-webkit-transform;
+			-webkit-transition-duration:250ms;	
+		}
+		#pullUp .pullUpIcon  {
+			-webkit-transform:rotate(-180deg) translateZ(0);
+		}
+
+
+		#pullUp.flip .pullUpIcon {
+			-webkit-transform:rotate(0deg) translateZ(0);
+		}
+
+		#pullUp.loading .pullUpIcon {
+			background-position:0 100%;
+			-webkit-transform:rotate(0deg) translateZ(0);
+			-webkit-transition-duration:0ms;
+
+			-webkit-animation-name:loading;
+			-webkit-animation-duration:2s;
+			-webkit-animation-iteration-count:infinite;
+			-webkit-animation-timing-function:linear;
+		}
+
+		@-webkit-keyframes loading {
+			from { -webkit-transform:rotate(0deg) translateZ(0); }
+			to { -webkit-transform:rotate(360deg) translateZ(0); }
+		}
+
+	</style>
+</head>
+<body>
+	<section class="loadBg gradePage">
+		<header>
+			<input type="button" value="我的排名" class="myRanking">
+			<a href="grade-rule.html" class="ruleActive"><input type="button" value="活动规则"></a>
+		</header>
+		<div class="ranking">
+			<img src="img/ranking.png" class="rankingImg">
+			<div id="wrapper" class="rankingScroll">
+				<div id="scroller">
+					<ul id="thelist"></ul>
+					<div id="pullUp">
+						<span class="pullUpIcon"></span><span class="pullUpLabel">下拉加载更多...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="award">
+			<input type="button" value="我也要拿6S">
+		</div>
+	</section>
+	<section class="mask" id="mask1">
+		<div class="popUp">
+			<span>您的当前排名为：</span><span class="myScore"></span>
+			<input type="button" value="关闭" class="close">
+		</div>
+	</section>
+	<section class="mask" id="mask2">
+		<div class="popUp popUp2">
+			<img src="img/code.gif" width="100%">
+			<input type="button" class="inputCode close" value="关闭">
+		</div>
+	</section>
+</body>
+</html>
+<script type="text/javascript" src="js/grade-page.js"></script>
+<script type="text/javascript" src="js/grade-page-scroll.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

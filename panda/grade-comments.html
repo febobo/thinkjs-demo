@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="max-age=0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/style.js"></script>
+</head>
+<body>
+	<section class="loadBg gradePage">
+		<div class="ranking">
+			<img src="img/gradeTitle.png" class="rankingImg rankingImg2">
+			<div class="rule gradeMark">
+				<div class="gradeRanking">
+					<img src="img/man.png" class="rankMan">
+					<span class="gradeName">陶陶的它</span>
+				</div>
+				<span class="redFont gradeComment">我正在参加“熊猫妹SPA眼罩”体验官面试，评论我为我加分吧！</span>
+			</div>
+			<ul class="scoreArea">
+				<li data-scroe="10">高富帅</li>
+				<li data-scroe="20">萝莉</li>
+				<li data-scroe="15">天然呆</li>
+				<li data-scroe="5">怪蜀黍</li>
+				<li data-scroe="10">御姐</li>
+				<li data-scroe="8">丑萌</li>
+				<li data-scroe="26">暖男</li>
+				<li data-scroe="36">白富美</li>
+				<li data-scroe="7">屌丝</li>
+				<li data-scroe="29">女汉纸</li>
+			</ul>	
+			<div class="award award2" id="commentScore">
+				<input type="button" value="提交">
+			</div>	
+		</div>
+	</section>
+</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		var comment=0;
+			var count = $(".scoreArea li").tap(function(){
+				var curCom=$(this).attr("data-scroe");
+				if(!$(this).hasClass("current")){
+					$(this).addClass("current");
+					comment+=curCom*1;
+				}else{
+					$(this).removeClass("current");
+					comment-=curCom*1;
+				}
+				return comment;
+			})
+		$("#commentScore").tap(function(){
+			ajaxFn("post","/admin/user/score",{"score" :comment,"type" : 1},function(data){
+				window.location.href="grade-success.html?scroe="+comment;
+			})
+		})
+	})
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

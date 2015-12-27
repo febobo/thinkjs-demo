@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="max-age=0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/move.css">
+	<script type="text/javascript" src="js/zepto.js"></script>
+</head>
+<body style="background-color: #ebebeb">
+	<section class="answerPage">
+		<div class="answerBox fadeIn">
+			<span class="manHead"><img src="img/man.png" alt="" width="36"></span>
+			<div class="sessionBox">
+				<span class="arrow"></span>
+				<div class="session">
+					<span>感谢您参加熊猫妹SPA眼罩体验官面试~~</span>
+				</div>
+			</div>
+		</div> 
+		<div class="answerBox">
+			<span class="manHead"><img src="img/man.png" alt="" width="36"></span>
+			<div class="sessionBox">
+				<span class="arrow"></span>
+				<div class="session session2">
+					<span></span>
+					<a href="grade-comments.html"><input type="button" class="commentBtn" value="找朋友为自己评论加分"></a>
+				</div>
+			</div>
+		</div>
+		<img src="img/chat.jpg" width="100%" class="chatImg">
+	</section>
+</body>
+</html>
+<script type="text/javascript" src="js/answer.js"></script>
+<script type="text/javascript">
+$(function(){
+	timeFadeIn($(".answerBox:eq(1)"),800);
+	var urlVal=window.location.search;
+	urlVal=urlVal.split("?")[1].split("=")[1];
+	$(".session2 > span").text("恭喜您获得"+urlVal+"分");
+})
+</script>
