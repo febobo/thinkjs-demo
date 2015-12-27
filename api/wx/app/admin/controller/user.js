@@ -12,6 +12,10 @@
 	addAction = function addAction() {var 
 		data, 
 		model, 
+
+
+		a, 
+
 		user_id, 
 
 
@@ -19,13 +23,13 @@
 
 
 
-		userInfo;return _regeneratorRuntime.async(function addAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();model = this.model('user');context$2$0.next = 4;return _regeneratorRuntime.awrap(model.add({ user_name: 'test' + Math.ceil(Math.random() * 100), user_pass: 'testpass', user_score: Math.ceil(Math.random() * 100), user_avatar: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1032584925,2843115905&fm=58' }));case 4:user_id = context$2$0.sent;context$2$0.next = 7;return _regeneratorRuntime.awrap(model.where({ 
-						id: user_id }).
-					find());case 7:userInfo = context$2$0.sent;context$2$0.next = 10;return _regeneratorRuntime.awrap(
+		userInfo, 
 
-					this.session(userInfo, userInfo));case 10:return context$2$0.abrupt("return", 
+
+
+		info;return _regeneratorRuntime.async(function addAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();model = this.model('user');context$2$0.next = 4;return _regeneratorRuntime.awrap(this.session('userInfo', 'ffaff'));case 4:context$2$0.next = 6;return _regeneratorRuntime.awrap(this.session('userInfo'));case 6:a = context$2$0.sent;console.log(a);context$2$0.next = 10;return _regeneratorRuntime.awrap(model.add({ user_name: 'test' + Math.ceil(Math.random() * 100), user_pass: 'testpass', user_score: Math.ceil(Math.random() * 100), user_avatar: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1032584925,2843115905&fm=58' }));case 10:user_id = context$2$0.sent;context$2$0.next = 13;return _regeneratorRuntime.awrap(model.where({ id: user_id }).find());case 13:userInfo = context$2$0.sent;context$2$0.next = 16;return _regeneratorRuntime.awrap(this.session(userInfo));case 16:info = context$2$0.sent;return context$2$0.abrupt("return", 
 					this.success({ 
-						userInfo: userInfo }));case 11:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+						userInfo: info }));case 18:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 
@@ -68,7 +72,7 @@
 
 	scoreAction = function scoreAction() {var 
 		data, 
-		userInfo, 
+
 
 
 		model, 
@@ -78,26 +82,49 @@
 
 
 
-		datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();context$2$0.next = 3;return _regeneratorRuntime.awrap(this.session('userInfo'));case 3:userInfo = context$2$0.sent;context$2$0.next = 6;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 6:if (context$2$0.sent) {context$2$0.next = 8;break;}this.fail('参数不正确');case 8:model = this.model('user');if (!data.type) {context$2$0.next = 14;break;}context$2$0.next = 12;return _regeneratorRuntime.awrap(model.where({ id: 50 }).find());case 12:info = context$2$0.sent;data.score += info.user_score;case 14:context$2$0.next = 16;return _regeneratorRuntime.awrap(model.where({ 
+		datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();context$2$0.next = 3;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 3:if (context$2$0.sent) {context$2$0.next = 5;break;}this.fail('参数不正确');case 5:model = this.model('user');if (!data.type) {context$2$0.next = 11;break;}context$2$0.next = 9;return _regeneratorRuntime.awrap(model.where({ id: 50 }).find());case 9:info = context$2$0.sent;data.score += info.user_score;case 11:context$2$0.next = 13;return _regeneratorRuntime.awrap(model.where({ 
 						id: 50 }).
 					update({ 
-						user_score: data.score }));case 16:datas = context$2$0.sent;
+						user_score: data.score }));case 13:datas = context$2$0.sent;
 
-					this.success('记分成功');case 18:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+					this.success('记分成功');case 15:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 	getcodeAction = function getcodeAction() {var 
 		data, 
 		client, 
 		openid, 
-		userInfo;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');openid = undefined;userInfo = undefined;context$2$0.next = 6;return _regeneratorRuntime.awrap(
+		userInfo, 
+		self;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');openid = undefined;userInfo = undefined;self = this;
 					client.getAccessToken(data.code, function (err, result) {
 						var accessToken = result.data.access_token;
 						openid = result.data.openid;
-						console.log(result);
 						client.getUser(openid, function (err, result) {
 							userInfo = result;
-							think.session = userInfo;});}));case 6:
+							var model = self.model('user');
+
+							self.session('userInfo', userInfo.openid);
+							self.session('userInfo').then(function (res) {
+								console.log(res);
+								model.where({ 'user_pass': res }).find().then(function (res) {
+									if (res.id) {
+										console.log(res.id);} else 
+
+									{
+
+										model.add({ 
+											user_name: result.nickname, 
+											user_pass: result.openid, 
+											user_score: 0, 
+											user_avatar: result.headimgurl }).
+										then(function (res) {
+											console.log(res);});}});});});});
+
+
+
+
+
+
 
 
 					this.redirect('http://www.7758a.com');
@@ -105,8 +132,11 @@
 
 
 	userinfoAction = function userinfoAction() {var 
+
 		client, 
-		url;return _regeneratorRuntime.async(function userinfoAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/getcode', 'state', 'snsapi_base');
+		url;return _regeneratorRuntime.async(function userinfoAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/getcode', 'state', 'snsapi_userinfo');
 					this.redirect(url);
 					// this.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f3f09b145491ade&redirect_uri=http://www.7758a.com/&response_type=code&scope=snsapi_base&state=123#wechat_redirect')
-					this.success(url);case 4:case "end":return context$2$0.stop();}}, null, this);};return _default;})(_baseJs2["default"]);exports["default"] = _default;module.exports = exports["default"]; // if(!userInfo) this.fail('请先关注');
+					this.success(url);case 4:case "end":return context$2$0.stop();}}, null, this);};return _default;})(_baseJs2["default"]);exports["default"] = _default;module.exports = exports["default"]; // let userInfo = await this.session('userInfo');
+// if(!userInfo) this.fail('请先关注');
+//    let client = new OAuth('wx9f3f09b145491ade', '88e31eaf4afeadbffae3a34c8363bd6a');
