@@ -10,8 +10,8 @@ export default class extends Base {
 	 * @return {Promise} []
 	 */
 	async addAction() {
-		console.log(this.post('currentPage'))
 		let data = this.post();
+        let model = this.model('user');
 		let user_id = await model.add({
 			user_name: 'test' + Math.ceil(Math.random() * 100),
 			user_pass: 'testpass',
@@ -53,7 +53,6 @@ export default class extends Base {
 
 		let scoreIndex, userInfo;
 		for (let [k, item] of data.entries()) {
-			console.log(k, item)
 			if (item.id == 50) {
 				scoreIndex = k + 1;
 				userInfo = item;
@@ -70,7 +69,6 @@ export default class extends Base {
 	async scoreAction() {
 		let data = this.post();
 		let userInfo = await this.session('userInfo');
-		console.log('userInfo', userInfo);
 		// if(!userInfo) this.fail('请先关注');
 		if (!await think.isNumber(data.score)) this.fail('参数不正确');
 		let model = this.model('user');
@@ -88,13 +86,28 @@ export default class extends Base {
 		this.success('记分成功')
 	}
 
-	async userinfoAction() {
-		console.log(OAuth)
-		let client = new OAuth('wx9f3f09b145491ade', '88e31eaf4afeadbffae3a34c8363bd6a');
-		let url = client.getAuthorizeURL('http://www.7758a.com/', 'state', 'snsapi_base');
-		this.redirect(url);
+    async getcodeAction(){
+        let data = this.get();
+		let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
+        let openid;
+        let userInfo;
+        client.getAccessToken(data.code, function (err, result) {
+          var accessToken = result.data.access_token;
+          openid = result.data.openid;
+        });
+        client.getUser(openid, function (err, result) {
+          userInfo = result;
+        });
+        console.log(data)
+        this.success({userinfo : userInfo})
+    }
 
+	async userinfoAction() {
+		let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
+		let url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/list', 'state', 'snsapi_base');
+		this.redirect(url);
 		// this.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f3f09b145491ade&redirect_uri=http://www.7758a.com/&response_type=code&scope=snsapi_base&state=123#wechat_redirect')
 		this.success(url)
 	}
+
 }
