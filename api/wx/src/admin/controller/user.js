@@ -70,7 +70,7 @@ export default class extends Base {
 		let data = this.post();
 		let userInfo = await this.session('userInfo');
 		// if(!userInfo) this.fail('请先关注');
-		if (!await think.isNumber(data.score)) this.fail('参数不正确');
+        if (!await think.isNumber(data.score * 1)) this.fail('参数不正确');
 		let model = this.model('user');
 		if (data.type) {
 			let info = await model.where({
@@ -104,7 +104,7 @@ export default class extends Base {
 
 	async userinfoAction() {
 		let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
-		let url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/list', 'state', 'snsapi_base');
+		let url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/getcode', 'state', 'snsapi_base');
 		this.redirect(url);
 		// this.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f3f09b145491ade&redirect_uri=http://www.7758a.com/&response_type=code&scope=snsapi_base&state=123#wechat_redirect')
 		this.success(url)

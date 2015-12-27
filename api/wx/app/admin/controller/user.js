@@ -78,7 +78,7 @@
 
 
 
-		datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();context$2$0.next = 3;return _regeneratorRuntime.awrap(this.session('userInfo'));case 3:userInfo = context$2$0.sent;context$2$0.next = 6;return _regeneratorRuntime.awrap(think.isNumber(data.score));case 6:if (context$2$0.sent) {context$2$0.next = 8;break;}this.fail('参数不正确');case 8:model = this.model('user');if (!data.type) {context$2$0.next = 14;break;}context$2$0.next = 12;return _regeneratorRuntime.awrap(model.where({ id: 50 }).find());case 12:info = context$2$0.sent;data.score += info.user_score;case 14:context$2$0.next = 16;return _regeneratorRuntime.awrap(model.where({ 
+		datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();context$2$0.next = 3;return _regeneratorRuntime.awrap(this.session('userInfo'));case 3:userInfo = context$2$0.sent;context$2$0.next = 6;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 6:if (context$2$0.sent) {context$2$0.next = 8;break;}this.fail('参数不正确');case 8:model = this.model('user');if (!data.type) {context$2$0.next = 14;break;}context$2$0.next = 12;return _regeneratorRuntime.awrap(model.where({ id: 50 }).find());case 12:info = context$2$0.sent;data.score += info.user_score;case 14:context$2$0.next = 16;return _regeneratorRuntime.awrap(model.where({ 
 						id: 50 }).
 					update({ 
 						user_score: data.score }));case 16:datas = context$2$0.sent;
@@ -99,12 +99,12 @@
 						userInfo = result;});
 
 					console.log(data);
-					this.success({ userinfo: userinfo });case 8:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+					this.success({ userinfo: userInfo });case 8:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 	userinfoAction = function userinfoAction() {var 
 		client, 
-		url;return _regeneratorRuntime.async(function userinfoAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/list', 'state', 'snsapi_base');
+		url;return _regeneratorRuntime.async(function userinfoAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/getcode', 'state', 'snsapi_base');
 					this.redirect(url);
 					// this.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f3f09b145491ade&redirect_uri=http://www.7758a.com/&response_type=code&scope=snsapi_base&state=123#wechat_redirect')
 					this.success(url);case 4:case "end":return context$2$0.stop();}}, null, this);};return _default;})(_baseJs2["default"]);exports["default"] = _default;module.exports = exports["default"]; // if(!userInfo) this.fail('请先关注');
