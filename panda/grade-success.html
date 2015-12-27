@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="max-age=0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/style.js"></script>
+</head>
+<body>
+	<section class="loadBg gradePage">
+		<div class="showGrade">加分成功，为您的好友加了<span class="redFont"></span></div>
+		<header>
+			<a href="grade-page.html"><input type="button" value="他的排名"></a>
+			<a href="grade-rule.html" class="ruleActive"><input type="button" value="活动规则"></a>
+		</header>
+		<span class="giftImg"><img src="img/gift.png" width="60%"></span>
+		<div class="award">
+			<input type="button" value="我也要拿6S">
+		</div>
+	</section>
+	<section class="mask" id="mask2">
+		<div class="popUp popUp2">
+			<img src="img/code.gif" width="100%">
+			<input type="button" class="inputCode close" value="关闭">
+		</div>
+	</section>
+</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		var urlVal=window.location.search;
+		urlVal=urlVal.split("?")[1].split("=")[1];
+		$(".showGrade > span").text(urlVal+"分");
+	})
+</script>
+<script type="text/javascript" src="js/grade-page.js"></script>
