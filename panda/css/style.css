@@ -1,0 +1,395 @@
+html,body{height:100%; }html{font-size:100%; font-family: "Microsoft YaHei", "微软雅黑", Arial, Verdana, serif;}html,body,div,form,p,ul,ol,li,h1,h2,h3,h4,figure{margin:0;padding:0;-webkit-margin-before:0;-webkit-margin-after:0; list-style: none;color: #2c1907;}body{-webkit-text-size-adjust:none;-webkit-user-select:none;-webkit-touch-callout:none;}
+i{font-style: normal;}
+input,button{outline: none;color: #2c1907;border: none;-webkit-appearance: none; appearance: none;font-family: "Microsoft YaHei", "微软雅黑", Arial, Verdana, serif;}
+.mainPage,.loadBg{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+.loadBg{
+	background-image: radial-gradient(closest-side circle at center,#f89349,#ee5416);
+}
+.loadBg > img{
+	margin: 35% auto 0;
+}
+.question{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	background:url(../img/mark.png) no-repeat center center;
+	background-size: 100%;
+	float: right;
+	margin: 12px 14px 0 0;
+}
+.towns img{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.btnTown{
+	width: 70%;
+	height: 33px;
+	background-color: #e95017;
+	font-size: 15px;
+	color: #fff;
+	border-radius: 4px;
+	position: absolute;
+	top: 84%;
+	margin-left: -35%;
+	left: 50%;
+}
+.towns span{
+	display: block;
+    text-align: left;
+    position: absolute;
+    top: 92%;
+    font-size: 12px;
+    width: 180px;
+    margin-left: -90px;
+    left: 50%;
+}
+.towns span >i{
+	letter-spacing: -0.8px;
+}
+.answerPage{
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 25px 10px 12%;
+}
+.answerBox{
+	overflow: hidden;
+	width: 100%;
+	margin-bottom: 18px;
+	opacity: 0;
+}
+.answerBox.fadeIn{
+	opacity: 1;
+}
+.manHead,.sessionBox{
+	float: left;
+}
+.sessionBox{
+	width: 85%;
+	padding-left: 8px;
+	position: relative;
+}
+.arrow{
+	display: inline-block;
+	width: 6px;
+	height: 12px;
+	background: url(../img/arrow.png) no-repeat center center;
+	background-size: 100%;
+	position: absolute;
+	top: 12px;
+	left: 3px;
+}
+.session{
+	width: 100%;
+	border-radius: 4px;
+	border: 1px solid #d5d5d5;
+	background-color: #fff;
+	font-size: 14px;
+	color: #222;
+	padding:10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.session span{
+	line-height: 20px;
+}
+.session li{
+	overflow: hidden;
+	padding-top: 15px;
+}
+.session input[type=radio]{
+	float: left;
+	width: 15px;
+	height: 15px;
+	border:1px solid #222;
+	border-radius: 20px;
+	position: relative;
+}
+.session label{
+	font-size: 13px;
+	width: 90%;
+	display: inline-block;
+	float: left;
+	line-height: 20px;
+}
+.session input[type=radio]:checked:before {
+	content: url(../img/radio.png);
+	position: absolute;
+	top: -1px;
+	left: 2px;
+}
+.chatImg{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+.commentBtn{
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 33px;
+	background-color: #ee5416;
+	font-size: 16px;
+	color: #fff;
+	border-radius: 4px;
+	margin-top: 12.5px;
+}
+.gradePage{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 18px 10px 10px 10px;
+	text-align: left;
+	height: auto;
+	min-height: 100%;
+}
+.gradePage header{
+	overflow: hidden;
+}
+
+.gradePage input{
+	width: 45%;
+	height: 38px;
+	text-align: center;
+	font-size: 15px;
+	color: #fff;
+	border-radius: 4px;
+}
+.gradePage input:nth-child(1){
+	float: left;
+	background-color: #ffba16;
+}
+
+.gradePage input:nth-child(2),.gradePage .ruleActive input{
+	float: right;
+	background-color: #f48a00;
+}
+.ranking{
+	width: 100%;
+	background-color: #faccba;
+	border: 1px solid #fff;
+	border-radius: 4px;
+	position: relative;
+	min-height: 300px;
+	margin-top: 10%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0 8px;
+}
+.loadBg .rankingImg{
+	width: 100%;
+	position: absolute;
+	top: -7.5%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0 8px;
+	left: 0;
+}
+.loadBg .rankingImg2{
+	top: -6.5%;
+}
+.ranking > ul,.rule{
+	margin-top: 20%;
+}
+.ranking li{
+	height: 32px;
+	line-height:32px;
+	font-size: 13px;
+	border-bottom: 1px solid #f8b799;
+	padding-left: 10px;
+	overflow: hidden;
+}
+.num{
+	font-size: 18px;
+	float: left;
+	margin-right: 4%;
+	width: 7%;
+}
+.rankMan{
+	width: 24px;
+	border: 1px solid #b51f24;
+	border-radius: 50px;
+	float: left;
+	margin:2px 6% 0 0;
+}
+.manName{
+	margin-right: 7%;
+    width: 28%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    overflow: hidden;
+    float: left;
+	
+}
+.ranking li:last-child{
+	border: none;
+}
+.award{
+	overflow: hidden;
+}
+.award input{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	color: #2c1907;
+	background-color: #fadd3e !important;
+	margin-top: 4%;
+	border-radius: 4px;
+	font-size: 17px;
+}
+.ranking li.first,.ranking li.first span{
+	color: #ee5416;
+}
+.mask{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0 22px;
+	display: none;
+}
+.popUp{
+	width: 100%;
+	min-height: 125px;
+	background-color: #fff;
+	color: #32261c;
+	font-size: 13px;
+	padding: 33px;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: 4px;
+	margin-top: 35%;
+}
+.popUp>input{
+	background-color: #ee5416;
+    font-size: 14px;
+    height: 28px;
+    width: 45%;
+	color: #fff;
+	margin-top: 25px;
+}
+.popUp>input.inputCode{
+	margin-top: 0;
+}
+.popUp2{
+	min-height: 200px;
+	padding: 10px;
+	margin-top: 55%;
+}
+.redFont{
+	color: #b51f24;
+}
+.rule{
+	color: #43352b;
+	font-size: 12px;
+	line-height: 20px;
+}
+.ruleTitle{
+	font-size: 13px;
+}
+.rule >p{
+	margin-bottom: 5px;
+}
+.gradePage .attention{
+	float: none !important;
+    height: 20px;
+    font-size: 12px;
+	width: 87px;
+	border: 1px solid #ee4400;
+	background-image: -webkit-linear-gradient(top,#f89349,#ee5416);
+}
+.showGrade{
+	height: 62px;
+	line-height: 62px;
+	width: 100%;
+	text-align: center;
+	background-color: rgba(255,255,255,0.7);
+	border-radius: 4px;
+	border: 1px solid rgba(255,255,255,0.9);
+	margin: 20px 0 30px;
+	font-size: 16px;
+	
+}
+.showGrade .redFont{
+	color: #be1b1b;
+	margin-left: 6px;
+}
+.giftImg{
+	display: block;
+	text-align: center;
+}
+.giftImg img{
+	margin: 35% auto;
+}
+.gradeRanking{
+	overflow: hidden;
+}
+.gradeName{
+	
+	font-size: 15px;
+	float: left;
+	margin-top: 14px;
+}
+.gradeRanking img{
+	width: 42px;
+	float: left;
+}
+.gradeComment{
+	font-size: 14px;
+	margin: 17px 0 20px;
+	display: block; 
+}
+.ranking > ul.scoreArea{
+	margin: 0;
+	overflow: hidden;
+}
+.ranking .scoreArea li{
+	width: 44%;
+	font-size: 13px;
+	border: 1px solid #ee5416;
+	height: 32px;
+	line-height: 32px;
+	border-radius: 15px;
+	margin-bottom: 17px;
+	text-align: center;
+}
+.scoreArea li:nth-child(2n){
+	float: right;
+}
+.scoreArea li:nth-child(2n+1){
+	float: left;
+}
+.ranking .scoreArea .current{
+	color: #fff;
+	border: 1px solid #f48a00;
+	background: url(../img/right.png) no-repeat #f48a00 94% center;
+	background-size: 10%;
+}
+.award2 input{
+	background-color: #ee5416 !important;
+	color: #fff;
+	margin: 6% 0;
+}
+.rankingScroll{
+	height: 320px;
+	overflow-x:auto;
+	margin-top: 20%;
+}
+
