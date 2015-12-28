@@ -29,11 +29,15 @@
 				<span class="arrow"></span>
 				<div class="session session2">
 					<span></span>
-					<a href="grade-comments.html"><input type="button" class="commentBtn" value="找朋友为自己评论加分"></a>
+					<input type="button" class="commentBtn" value="找朋友为自己评论加分">
 				</div>
 			</div>
 		</div>
 		<img src="img/chat.jpg" width="100%" class="chatImg">
+	</section>
+	<section class="shareMask">
+		<img src="img/share.png" class="fadeIn" style="-webkit-animation-duration:3s;
+	animation-duration:3s;" alt="" width="64%">
 	</section>
 </body>
 </html>
@@ -44,5 +48,8 @@ $(function(){
 	var urlVal=window.location.search;
 	urlVal=urlVal.split("?")[1].split("=")[1];
 	$(".session2 > span").text("恭喜您获得"+urlVal+"分");
+	$(".commentBtn").tap(function(){
+		$(".shareMask").addClass("fadeIn")
+	})
 })
 </script>

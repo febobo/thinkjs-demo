@@ -9,7 +9,7 @@
 		},time)
 	}
 	timeFadeIn($(".answerBox:eq(1)"),500);
-	timeFadeIn($(".answerBox:eq(2)"),1000,1);
+	timeFadeIn($(".answerBox:eq(2)"),1000,3);
 	function radioOnly(fatherBox,num){
 		var radios = $(fatherBox).find("input");
 		for(var i=0; i<radios.length; i++){
@@ -29,9 +29,9 @@
 						}
 					}
 					if($(fatherBox).next().next().index()==4){
-						timeFadeIn($(fatherBox).next().next(),2000,2);
+						timeFadeIn($(fatherBox).next().next(),2000,1);
 					}else{
-						timeFadeIn($(fatherBox).next().next(),2000,3);
+						timeFadeIn($(fatherBox).next().next(),2000,1);
 						
 					}
 				}
@@ -41,9 +41,11 @@
 	}
 
 	$(".answerBox:eq(6)").tap(function(){
-		ajaxFn("post","/admin/user/score",{"score" :total},function(data){
-			window.location.href="answer-complete.html?scroe="+total;
-		})
+		setTimeout(function(){
+			ajaxFn("post","/admin/user/score",{"score" :total},function(data){
+				window.location.href="answer-complete.html?scroe="+total;
+			})
+		},2500)
 	})
 
 

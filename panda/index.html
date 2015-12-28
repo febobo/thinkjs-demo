@@ -12,19 +12,34 @@
 	<link rel="stylesheet" href="css/move.css">
 </head>
 <body>
-	<a href="main-page.html">
-		<section class="loadBg">
-			<img src="img/loading.png" class="fadeIn" style="-webkit-animation-duration:3s;
-		animation-duration:3s;" alt="" width="37%">
-		</section>
-	</a>
+	<section class="mainPage mainPage2">
+		<a href="grade-rule.html"><span class="question"></span></a>
+		<img src="img/activity.png" alt="" width="96%">
+		<div class="towns">
+			<img src="img/towns.png" alt="" width="100%">
+			<a href="answer-page.html">
+				<input type="button" class="btnTown" value="我要当体验官">
+			</a>
+			<span>天津国际生物医药联合研究院研制<br><i>天津博森生物科技发展有限公司出品</i></span>
+		</div>
+	</section>
+	<section class="loadBg mask3">
+		<img src="img/loading.png" class="fadeIn" style="-webkit-animation-duration:3s;
+	animation-duration:3s;" alt="" width="37%">
+	</section>
 </body>
 </html>
-<script>
-  //if(location.search){
-  //  alert(location.search.split('?')[1].split('=')[1])
- // }
-  setTimeout(function(){
-    window.location.href = '/answer-page.html';
-  },1500)
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript">
+	$(function(){
+		setTimeout(function(){
+			$(".mask3").addClass("fadeOut");
+		},1000);
+		setTimeout(function(){
+			$(".mask3").addClass("fadeOut2");
+		},3000);
+		setTimeout(function(){
+			$(".mainPage2").addClass("fadeIn");
+		},1800);
+	})
 </script>
