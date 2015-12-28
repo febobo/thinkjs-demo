@@ -13,8 +13,7 @@
 		data, 
 		model, 
 
-
-		a, 
+		info, 
 
 		user_id, 
 
@@ -23,13 +22,12 @@
 
 
 
-		userInfo, 
+		userInfo;return _regeneratorRuntime.async(function addAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();model = this.model('user');context$2$0.next = 4;return _regeneratorRuntime.awrap(this.session('userInfo'));case 4:info = context$2$0.sent;console.log(info);context$2$0.next = 8;return _regeneratorRuntime.awrap(model.add({ user_name: 'test' + Math.ceil(Math.random() * 100), user_pass: 'testpass', user_score: Math.ceil(Math.random() * 100), user_avatar: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1032584925,2843115905&fm=58' }));case 8:user_id = context$2$0.sent;context$2$0.next = 11;return _regeneratorRuntime.awrap(model.where({ 
+						id: user_id }).
+					find());case 11:userInfo = context$2$0.sent;return context$2$0.abrupt("return", 
 
-
-
-		info;return _regeneratorRuntime.async(function addAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();model = this.model('user');context$2$0.next = 4;return _regeneratorRuntime.awrap(this.session('userInfo', 'ffaff'));case 4:context$2$0.next = 6;return _regeneratorRuntime.awrap(this.session('userInfo'));case 6:a = context$2$0.sent;console.log(a);context$2$0.next = 10;return _regeneratorRuntime.awrap(model.add({ user_name: 'test' + Math.ceil(Math.random() * 100), user_pass: 'testpass', user_score: Math.ceil(Math.random() * 100), user_avatar: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1032584925,2843115905&fm=58' }));case 10:user_id = context$2$0.sent;context$2$0.next = 13;return _regeneratorRuntime.awrap(model.where({ id: user_id }).find());case 13:userInfo = context$2$0.sent;context$2$0.next = 16;return _regeneratorRuntime.awrap(this.session(userInfo));case 16:info = context$2$0.sent;return context$2$0.abrupt("return", 
 					this.success({ 
-						userInfo: info }));case 18:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+						userInfo: info }));case 13:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 
@@ -92,33 +90,25 @@
 
 	getcodeAction = function getcodeAction() {var 
 		data, 
+		self, 
 		client, 
+		getAccessToken, 
+		result, 
+
+		accessToken, 
 		openid, 
+
+		getUser, 
 		userInfo, 
-		self;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');openid = undefined;userInfo = undefined;self = this;
-					client.getAccessToken(data.code, function (err, result) {
-						var accessToken = result.data.access_token;
-						openid = result.data.openid;
-						client.getUser(openid, function (err, result) {
-							userInfo = result;
-							var model = self.model('user');
 
-							self.session('userInfo', userInfo.openid);
-							self.session('userInfo').then(function (res) {
-								console.log(res);
-								model.where({ 'user_pass': res }).find().then(function (res) {
-									if (res.id) {
-										console.log(res.id);} else 
+		model, 
 
-									{
 
-										model.add({ 
-											user_name: result.nickname, 
-											user_pass: result.openid, 
-											user_score: 0, 
-											user_avatar: result.headimgurl }).
-										then(function (res) {
-											console.log(res);});}});});});});
+		res, 
+
+
+
+		insertId, 
 
 
 
@@ -126,9 +116,12 @@
 
 
 
+		info;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();self = this;client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');getAccessToken = think.promisify(client.getAccessToken, client);context$2$0.next = 6;return _regeneratorRuntime.awrap(getAccessToken(data.code));case 6:result = context$2$0.sent;accessToken = result.data.access_token;openid = result.data.openid;getUser = think.promisify(client.getUser, client);context$2$0.next = 12;return _regeneratorRuntime.awrap(getUser(openid));case 12:userInfo = context$2$0.sent;model = self.model('user');console.log(userInfo);res = model.where({ 'user_pass': userInfo.openid }).find();if (!res.id) {insertId = model.add({ user_name: result.nickname, user_pass: result.openid, user_avatar: result.headimgurl });}context$2$0.next = 19;return _regeneratorRuntime.awrap(this.session('userInfo', userInfo));case 19:context$2$0.next = 21;return _regeneratorRuntime.awrap(self.session('userInfo'));case 21:info = context$2$0.sent;
+					console.log(info);
+					this.redirect('http://www.7758a.com?userInfo=' + info.openid);
+					this.success({ 
+						userinfo: userInfo });case 25:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
-					this.redirect('http://www.7758a.com');
-					this.success({ userinfo: userInfo });case 8:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 	userinfoAction = function userinfoAction() {var 

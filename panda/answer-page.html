@@ -108,3 +108,40 @@
 </body>
 </html>
 <script type="text/javascript" src="js/answer.js"></script>
+<script type="text/javascript"> 
+var tit = $('#wx-title').val(); //标题 
+var img = $('#wx-img').val(); //图片 
+var con = $('#wx-con').val(); //简介 
+var link = $('#wx-link').val(); //链接 
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() { 
+// 发送给好友 
+WeixinJSBridge.on('menu:share:appmessage', function (argv) { 
+WeixinJSBridge.invoke('sendAppMessage', { 
+"appid": "wxa0bb7dd833ca89ce", 
+"img_url": 'https://cdn.v2ex.co/avatar/8d9a/a1e4/33776_large.png?m=1419829721', 
+"img_width": "160", 
+"img_height": "160", 
+"link": link, 
+"desc": con, 
+"title": '熊猫妹免费送6S啦！！' 
+}, function (res) { 
+ alert(res)
+_report('send_msg', res.err_msg); 
+}) 
+}); 
+
+// 分享到朋友圈 
+WeixinJSBridge.on('menu:share:timeline', function (argv) { 
+WeixinJSBridge.invoke('shareTimeline', { 
+"img_url": img, 
+"img_width": "160", 
+"img_height": "160", 
+"link": link, 
+"desc": con, 
+"title": tit 
+}, function (res) { 
+_report('timeline', res.err_msg); 
+}); 
+}); 
+}, false) 
+</script>

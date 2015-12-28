@@ -13,9 +13,8 @@ export default class extends Base {
 		let data = this.post();
         let model = this.model('user');
 
-        await this.session('userInfo' , 'ffaff')
-        let a = await this.session('userInfo')
-        console.log(a)
+        let info = await this.session('userInfo')
+        console.log(info)
 		let user_id = await model.add({
 			user_name: 'test' + Math.ceil(Math.random() * 100),
 			user_pass: 'testpass',
@@ -27,7 +26,6 @@ export default class extends Base {
 			id: user_id
 		}).find();
 
-		let info = await this.session(userInfo);
 		return this.success({
 			userInfo: info
 		});
@@ -90,41 +88,40 @@ export default class extends Base {
 		this.success('记分成功')
 	}
 
-    async getcodeAction(){
+    async getcodeAction() {
         let data = this.get();
-		let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
-        let openid;
-        let userInfo;
         let self = this;
-        client.getAccessToken(data.code, function (err, result) {
-          let accessToken = result.data.access_token;
-          openid = result.data.openid;
-          client.getUser(openid, function (err, result) {
-             userInfo = result;
-             let model = self.model('user');
+        let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
+        let getAccessToken = think.promisify(client.getAccessToken, client);
+        let result = await getAccessToken(data.code);
 
-             self.session('userInfo' , userInfo.openid);
-             self.session('userInfo').then(function(res){
-                console.log(res)
-                model.where({'user_pass' : res}).find().then(function(res){
-                    if(!res.id){
+        let accessToken = result.data.access_token;
+        let openid = result.data.openid;
 
-		     model.add({
-    			user_name: result.nickname,
-    			user_pass: result.openid,
-    			user_avatar: result.headimgurl 
-    		 }).then(function(res){
-console.log(res)
-})
+        let getUser = think.promisify(client.getUser, client);
+        let userInfo = await getUser(openid);
 
-                    }
-                });
-             });
-          });
-        });
+        let model = self.model('user');
 
-        this.redirect('http://www.7758a.com')
-        this.success({userinfo : userInfo})
+        console.log(userInfo)
+        let res = model.where({
+            'user_pass': userInfo.openid
+        }).find();
+        if (!res.id) {
+            let insertId = model.add({
+                user_name: result.nickname,
+                user_pass: result.openid,
+                user_avatar: result.headimgurl
+            });
+        }
+
+        await this.session('userInfo', userInfo);
+        let info = await self.session('userInfo');
+        console.log(info)
+        this.redirect('http://www.7758a.com?userInfo=' + info.openid)
+        this.success({
+            userinfo: userInfo
+        })
     }
 
 	async userinfoAction() {
