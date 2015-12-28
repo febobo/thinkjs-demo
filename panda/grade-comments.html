@@ -19,21 +19,21 @@
 			<div class="rule gradeMark">
 				<div class="gradeRanking">
 					<img src="img/man.png" class="rankMan">
-					<span class="gradeName">陶陶的它</span>
+					<span class="gradeName"></span>
 				</div>
 				<span class="redFont gradeComment">我正在参加“熊猫妹SPA眼罩”体验官面试，评论我为我加分吧！</span>
 			</div>
 			<ul class="scoreArea">
-				<li data-scroe="10">高富帅</li>
-				<li data-scroe="20">萝莉</li>
-				<li data-scroe="15">天然呆</li>
-				<li data-scroe="5">怪蜀黍</li>
-				<li data-scroe="10">御姐</li>
-				<li data-scroe="8">丑萌</li>
-				<li data-scroe="26">暖男</li>
-				<li data-scroe="36">白富美</li>
-				<li data-scroe="7">屌丝</li>
-				<li data-scroe="29">女汉纸</li>
+				<li data-scroe="">高富帅</li>
+				<li data-scroe="">萝莉</li>
+				<li data-scroe="">天然呆</li>
+				<li data-scroe="">怪蜀黍</li>
+				<li data-scroe="">御姐</li>
+				<li data-scroe="">丑萌</li>
+				<li data-scroe="">暖男</li>
+				<li data-scroe="">白富美</li>
+				<li data-scroe="">屌丝</li>
+				<li data-scroe="">女汉纸</li>
 			</ul>	
 			<div class="award award2" id="commentScore">
 				<input type="button" value="提交">
@@ -44,6 +44,17 @@
 </html>
 <script type="text/javascript">
 	$(function(){
+        var user = JSON.parse(localStorage.getItem('userInfo'));
+        console.log(user)
+        if(user){
+            $('.gradeName').text(user.user_name)
+            $('.rankMan').attr('src' , user.user_avatar)
+        }
+
+        $('.scoreArea li').each(function(i){
+            $(this).attr('data-scroe' ,Math.floor(Math.random() * (10-5+1) + 5) )
+        })
+
 		var comment=0;
 			var count = $(".scoreArea li").tap(function(){
 				var curCom=$(this).attr("data-scroe");
@@ -57,14 +68,11 @@
 				return comment;
 			})
 		$("#commentScore").tap(function(){
-			ajaxFn("post","/admin/user/score",{"score" :comment,"type" : 1},function(data){
+			ajaxFn("post","/admin/user/score",{"score" :comment,"type" : 1 , "openid" : user.user_pass},function(data){
 				window.location.href="grade-success.html?scroe="+comment;
 			})
 		})
 
-		ajaxFn("post","/admin/user/add",{"score" :comment,"type" : 1},function(data){
-            alert(JSON.stringify(data))
-		})
 	})
 </script>
 
