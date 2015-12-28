@@ -4,30 +4,26 @@
 'wechat-oauth');var _wechatOauth2 = _interopRequireDefault(_wechatOauth);var _default = (function (_Base) {_inherits(_default, _Base);function _default() {_classCallCheck(this, _default);_Base.apply(this, arguments);}
 
 
-
 	/**
   * index action
   * @return {Promise} []
   */_default.prototype.
-	addAction = function addAction() {var 
+	infoAction = function infoAction() {var 
 		data, 
+		openid, 
 		model, 
-
-		info, 
-
-		user_id, 
-
-
-
-
-
-
-		userInfo;return _regeneratorRuntime.async(function addAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();model = this.model('user');context$2$0.next = 4;return _regeneratorRuntime.awrap(this.session('userInfo'));case 4:info = context$2$0.sent;console.log(info);context$2$0.next = 8;return _regeneratorRuntime.awrap(model.add({ user_name: 'test' + Math.ceil(Math.random() * 100), user_pass: 'testpass', user_score: Math.ceil(Math.random() * 100), user_avatar: 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1032584925,2843115905&fm=58' }));case 8:user_id = context$2$0.sent;context$2$0.next = 11;return _regeneratorRuntime.awrap(model.where({ 
-						id: user_id }).
-					find());case 11:userInfo = context$2$0.sent;return context$2$0.abrupt("return", 
-
+		info;return _regeneratorRuntime.async(function infoAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();openid = data.openid || 'obdPat4vBB1mFcd9ql_5PtYjRScA';model = this.model('user');context$2$0.next = 5;return _regeneratorRuntime.awrap(model.where({ 
+						"user_pass": openid }).
+					find());case 5:info = context$2$0.sent;if (!
+					info.user_pass) {context$2$0.next = 9;break;}
+					this.session('userInfo', info);return context$2$0.abrupt("return", 
 					this.success({ 
-						userInfo: info }));case 13:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+						userInfo: info }));case 9:
+
+
+					this.redirect('http://www.7758a.com:1234/admin/user/userinfo');
+					this.success({ 
+						userinfo: userInfo });case 11:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 
@@ -103,7 +99,6 @@
 
 		model, 
 
-
 		res, 
 
 
@@ -116,11 +111,11 @@
 
 
 
-		info;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();self = this;client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');getAccessToken = think.promisify(client.getAccessToken, client);context$2$0.next = 6;return _regeneratorRuntime.awrap(getAccessToken(data.code));case 6:result = context$2$0.sent;accessToken = result.data.access_token;openid = result.data.openid;getUser = think.promisify(client.getUser, client);context$2$0.next = 12;return _regeneratorRuntime.awrap(getUser(openid));case 12:userInfo = context$2$0.sent;model = self.model('user');console.log(userInfo);res = model.where({ 'user_pass': userInfo.openid }).find();if (!res.id) {insertId = model.add({ user_name: result.nickname, user_pass: result.openid, user_avatar: result.headimgurl });}context$2$0.next = 19;return _regeneratorRuntime.awrap(this.session('userInfo', userInfo));case 19:context$2$0.next = 21;return _regeneratorRuntime.awrap(self.session('userInfo'));case 21:info = context$2$0.sent;
+		info;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();self = this;client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');getAccessToken = think.promisify(client.getAccessToken, client);context$2$0.next = 6;return _regeneratorRuntime.awrap(getAccessToken(data.code));case 6:result = context$2$0.sent;accessToken = result.data.access_token;openid = result.data.openid;getUser = think.promisify(client.getUser, client);context$2$0.next = 12;return _regeneratorRuntime.awrap(getUser(openid));case 12:userInfo = context$2$0.sent;model = self.model('user');res = model.where({ 'user_pass': userInfo.openid }).find();if (!res.id) {insertId = model.add({ user_name: result.nickname, user_pass: result.openid, user_avatar: result.headimgurl });}context$2$0.next = 18;return _regeneratorRuntime.awrap(this.session('userInfo', userInfo));case 18:context$2$0.next = 20;return _regeneratorRuntime.awrap(self.session('userInfo'));case 20:info = context$2$0.sent;
 					console.log(info);
 					this.redirect('http://www.7758a.com?userInfo=' + info.openid);
 					this.success({ 
-						userinfo: userInfo });case 25:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+						userinfo: userInfo });case 24:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 
