@@ -10,7 +10,7 @@
 		},time)
 	}
 	timeFadeIn($(".answerBox:eq(1)"),500);
-	timeFadeIn($(".answerBox:eq(2)"),1000,1);
+	timeFadeIn($(".answerBox:eq(2)"),1000,3);
 	function radioOnly(fatherBox,num){
 		var radios = $(fatherBox).find("input");
 		for(var i=0; i<radios.length; i++){
@@ -30,10 +30,9 @@
 						}
 					}
 					if($(fatherBox).next().next().index()==4){
-						timeFadeIn($(fatherBox).next().next(),2000,2);
+						timeFadeIn($(fatherBox).next().next(),2000,1);
 					}else{
-						timeFadeIn($(fatherBox).next().next(),2000,3);
-
+						timeFadeIn($(fatherBox).next().next(),2000,1);
 					}
 				}
 				return total
@@ -42,7 +41,7 @@
 	}
 
     var userinfo;
-	$(".answerBox:eq(0)").tap(function(){
+	$(".answerBox:eq(6)").tap(function(){
 		ajaxFn("post","/admin/user/score",{"score" :total},function(data){
             if(data.data.status == 1){
 		       window.location.href="http://www.7758a.com:1234/admin/user/userinfo?openid=" + userinfo.user_pass;

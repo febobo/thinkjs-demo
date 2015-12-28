@@ -18,11 +18,39 @@
 		display: block;
 	}
 }
+@-webkit-keyframes fadeOut{
+	0%{
+		opacity:1;
+		display: block;
+	}
+	100%{
+		opacity:0;
+		display: none;
+	}
+}
+@keyframes fadeOut{
+	0%{
+		opacity:1;
+		display: block;
+	}
+	100%{
+		opacity:0;
+		display: none;
+	}
+}
 .fadeIn{
 	-webkit-animation-name:fadeIn;
 		animation-name:fadeIn;
 	-webkit-animation-duration:1.5s;
 		animation-duration:1.5s;
+	-webkit-animation-teration-count:1;
+		animation-teration-count:1;
+}
+.fadeOut{
+	-webkit-animation-name:fadeOut;
+		animation-name:fadeOut;
+	-webkit-animation-duration:3s;
+		animation-duration:3s;
 	-webkit-animation-teration-count:1;
 		animation-teration-count:1;
 }

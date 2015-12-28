@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/move.css">
 	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/style.js"></script>
+
 </head>
 <body style="background-color: #ebebeb">
 	<section class="answerPage">
@@ -29,14 +31,19 @@
 				<span class="arrow"></span>
 				<div class="session session2">
 					<span></span>
-					<a href="grade-comments.html"><input type="button" class="commentBtn" value="找朋友为自己评论加分"></a>
+					<input type="button" class="commentBtn" value="找朋友为自己评论加分">
 				</div>
 			</div>
 		</div>
 		<img src="img/chat.jpg" width="100%" class="chatImg">
 	</section>
+	<section class="shareMask">
+		<img src="img/share.png" class="fadeIn" style="-webkit-animation-duration:3s;
+	animation-duration:3s;" alt="" width="64%">
+	</section>
 </body>
 </html>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript" src="js/answer.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -44,5 +51,46 @@ $(function(){
 	var urlVal=window.location.search;
 	urlVal=urlVal.split("?")[1].split("=")[1];
 	$(".session2 > span").text("恭喜您获得"+urlVal+"分");
+	$(".commentBtn").tap(function(){
+		$(".shareMask").addClass("fadeIn")
+	})
+	ajaxFn("post","/admin/sdk/sdkconfig",{"score" :total},function(data){
+		console.log(data)
+		var r = data.data;
+		// 配置微信JS-SDK
+	    wx.config({
+	        debug: true,
+	        appId: r.appId,
+	        timestamp: r.timestamp,
+	        nonceStr: r.nonceStr,
+	        signature: r.signature,
+	        jsApiList: [
+	            'checkJsApi',
+	            'onMenuShareTimeline',
+	            'onMenuShareAppMessage',
+	            'onMenuShareQQ',
+	            'onMenuShareWeibo',
+	            'hideMenuItems',
+	            'chooseImage'
+	        ]
+	    });
+	        // 调用微信API
+	    wx.ready(function() {
+	        var sdata = {
+	            title: '熊猫妹送6s啦',
+	            desc: '急急急!!小伙伴们快来帮我评分啦',
+	            link: 'http://www.7758a.com/grade-comments.html?openid' + 'testopenid' ,
+	            imgUrl: 'http://game.4gshu.com/xuangedan/other-project/2015-01-06/img/share-wx-logo.jpg',
+	            success: function() {
+	                alert('用户确认分享后执行的回调函数');
+	            },
+	            cancel: function() {
+	                alert('用户取消分享后执行的回调函数');
+	            }
+	        };
+	        wx.onMenuShareTimeline(sdata);
+	        wx.onMenuShareAppMessage(sdata);
+	    });
+	})
 })
 </script>
