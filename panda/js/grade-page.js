@@ -1,5 +1,10 @@
 //获取排名
 $(function(){
+    var user = JSON.parse(localStorage.getItem('userInfo'));
+    var openid;
+    if(user){
+        openid = user.user_pass;
+    }
 	//获取全部排名
 	var page=1;//当前页;
 	ajaxFn("post","/admin/user/list",{'page': 1,'limit': 10},function(data){
@@ -18,17 +23,24 @@ $(function(){
 
 	//获取我的排名
 	$(".myRanking").tap(function(){
-		ajaxFn("post","/admin/user/myresult","",function(data){
+		ajaxFn("post","/admin/user/myresult",{openid : openid},function(data){
+            if(data.data.status == 100){
+
+			$('.popUp').empty();
+			var noName="<span>您还没有参加活动，快点来参加吧！</span><input type='button' value='我也要拿6S' class='joinBtn'>"
+			$('.popUp').append(noName);
+			$("#mask1").show();
+
+            }else{
+
 			var data=data.data;
 			var curRanking="";
 			curRanking="<i class='redFont'>第"+data.scoreIndex+"名&nbsp;&nbsp;&nbsp;"+data.userInfo.user_score+"分</i>"
 			$('.popUp .myScore').append(curRanking);
 			$("#mask1").show();
+
+            }
 		},function(){
-			$('.popUp').empty();
-			var noName="<span>您还没有参加活动，快点来参加吧！</span><input type='button' value='我也要拿6S' class='joinBtn'>"
-			$('.popUp').append(noName);
-			$("#mask1").show();
 		})
 	})
 	//规则页面关注按钮展开扫描二维码

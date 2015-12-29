@@ -42,7 +42,7 @@
 
     var userinfo;
 	$(".answerBox:eq(6)").tap(function(){
-		ajaxFn("post","/admin/user/score",{"score" :total},function(data){
+		ajaxFn("post","/admin/user/score",{"score" :total , openid : userinfo.user_pass },function(data){
             if(data.data.status == 1){
 		       window.location.href="http://www.7758a.com:1234/admin/user/userinfo?openid=" + userinfo.user_pass;
             }else if(data.data.status == 100){

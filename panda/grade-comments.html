@@ -44,6 +44,9 @@
 </html>
 <script type="text/javascript">
 	$(function(){
+        var urlVal=window.location.search;
+        var t_openid = urlVal.split("?")[1].split("=")[2];
+        t_openid =urlVal.split("?")[1].split("=")[1].split('&')[0];
         var user = JSON.parse(localStorage.getItem('userInfo'));
         console.log(user)
         if(user){
@@ -68,7 +71,10 @@
 				return comment;
 			})
 		$("#commentScore").tap(function(){
-			ajaxFn("post","/admin/user/score",{"score" :comment,"type" : 1 , "openid" : user.user_pass},function(data){
+			ajaxFn("post","/admin/user/score",{"score" :comment,"type" : 1 , "openid" : user.user_pass , "t_openid" : t_openid},function(data){
+                if(data.data && data.data.status == 1){
+                    return alert(data.data.msg)
+                }
 				window.location.href="grade-success.html?scroe="+comment;
 			})
 		})
