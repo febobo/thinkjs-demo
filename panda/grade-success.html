@@ -7,7 +7,7 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<title>Document</title>
+	<title>熊猫妹SPA眼罩</title>
 	<link rel="stylesheet" href="css/style.css">
 	<script type="text/javascript" src="js/zepto.js"></script>
 	<script type="text/javascript" src="js/style.js"></script>
@@ -16,8 +16,8 @@
 	<section class="loadBg gradePage">
 		<div class="showGrade">加分成功，为您的好友加了<span class="redFont"></span></div>
 		<header>
-			<a href="grade-page.html"><input type="button" value="他的排名"></a>
-			<a href="grade-rule.html" class="ruleActive"><input type="button" value="活动规则"></a>
+			<a  id="link-page"><input type="button" value="他的排名"></a>
+			<a  id="link-rule" class="ruleActive"><input type="button" value="活动规则"></a>
 		</header>
 		<span class="giftImg"><img src="img/gift.png" width="60%"></span>
 		<div class="award">
@@ -37,6 +37,19 @@
 		var urlVal=window.location.search;
 		urlVal=urlVal.split("?")[1].split("=")[1];
 		$(".showGrade > span").text(urlVal+"分");
+        var user = JSON.parse(localStorage.getItem('userInfo'));
+        if(user){
+            var openid = user.user_pass;
+        }
+        $('#link-page').tap(function(){
+            window.location.href = "grade-page.html?openid=" + openid;
+        })
+
+        $('#link-rule').tap(function(){
+            window.location.href = "grade-rule.html?openid=" + openid;
+        })
 	})
 </script>
 <script type="text/javascript" src="js/grade-page.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/share.js"></script>

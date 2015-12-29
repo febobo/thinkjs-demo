@@ -12,21 +12,20 @@
         data, 
         openid, 
         model, 
-        info;return _regeneratorRuntime.async(function infoAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();openid = data.openid || 'obdPat4vBB1mFcd9ql_5PtYjRScA';model = this.model('user');context$2$0.next = 5;return _regeneratorRuntime.awrap(model.where({ 
+        info;return _regeneratorRuntime.async(function infoAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();openid = data.openid;model = this.model('user');context$2$0.next = 5;return _regeneratorRuntime.awrap(model.where({ 
                         "user_pass": openid }).
-                    find());case 5:info = context$2$0.sent;
+                    find());case 5:info = context$2$0.sent;context$2$0.next = 8;return _regeneratorRuntime.awrap(
 
-                    this.session('userInfo', '131313');if (!
-                    info.user_pass) {context$2$0.next = 11;break;}context$2$0.next = 10;return _regeneratorRuntime.awrap(
-                    this.session('userInfo', info));case 10:return context$2$0.abrupt("return", 
+                    this.session('userInfo', '131313'));case 8:if (!
+
+                    info.user_pass) {context$2$0.next = 12;break;}context$2$0.next = 11;return _regeneratorRuntime.awrap(
+                    this.session('userInfo', info));case 11:return context$2$0.abrupt("return", 
                     this.success({ 
-                        userInfo: info }));case 11:
+                        userInfo: info }));case 12:
 
 
-                    this.action('user', '/admin/user/userinfo');
-                    this.success({ 
-                        userinfo: userInfo });case 13:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
+                    this.success('个人信息获取成功');case 13:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
     listAction = function listAction() {var 
@@ -56,27 +55,30 @@
 
 
         model, 
+        user, 
         data, 
 
 
         scoreIndex, userInfo, _iterator, _isArray, _i, _ref, 
-        k, item;return _regeneratorRuntime.async(function myresultAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:datas = this.post();console.log(datas);if (datas.openid) {this.success({ status: 1, msg: '还未参与活动' });}model = this.model("user");context$2$0.next = 6;return _regeneratorRuntime.awrap(model.order({ user_score: 'desc' }).fieldReverse('user_pass').select());case 6:data = context$2$0.sent;scoreIndex = undefined, userInfo = undefined;_iterator = data.entries(), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _getIterator(_iterator);case 9:if (!_isArray) {context$2$0.next = 15;break;}if (!(_i >= _iterator.length)) {context$2$0.next = 12;break;}return context$2$0.abrupt("break", 27);case 12:_ref = _iterator[_i++];context$2$0.next = 19;break;case 15:_i = _iterator.next();if (!_i.done) {context$2$0.next = 18;break;}return context$2$0.abrupt("break", 27);case 18:_ref = _i.value;case 19:k = _ref[0];item = _ref[1];if (!(
-                    item.user_pass == datas.openid)) {context$2$0.next = 25;break;}
+        k, item;return _regeneratorRuntime.async(function myresultAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:datas = this.post();console.log(datas);if (!datas.openid) {this.success({ status: 1, msg: '还未参与活动' });}model = this.model("user");context$2$0.next = 6;return _regeneratorRuntime.awrap(model.where({ user_pass: datas.openid }).find());case 6:user = context$2$0.sent;context$2$0.next = 9;return _regeneratorRuntime.awrap(model.order({ user_score: 'desc' }).fieldReverse('user_pass').select());case 9:data = context$2$0.sent;scoreIndex = undefined, userInfo = undefined;_iterator = data.entries(), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _getIterator(_iterator);case 12:if (!_isArray) {context$2$0.next = 18;break;}if (!(_i >= _iterator.length)) {context$2$0.next = 15;break;}return context$2$0.abrupt("break", 30);case 15:_ref = _iterator[_i++];context$2$0.next = 22;break;case 18:_i = _iterator.next();if (!_i.done) {context$2$0.next = 21;break;}return context$2$0.abrupt("break", 30);case 21:_ref = _i.value;case 22:k = _ref[0];item = _ref[1];if (!(
+                    item.id == user.id)) {context$2$0.next = 28;break;}
                     scoreIndex = k + 1;
-                    userInfo = item;return context$2$0.abrupt("break", 27);case 25:context$2$0.next = 9;break;case 27:
+                    userInfo = item;return context$2$0.abrupt("break", 30);case 28:context$2$0.next = 12;break;case 30:
 
 
 
 
                     this.success({ 
                         userInfo: userInfo, 
-                        scoreIndex: scoreIndex });case 28:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+                        scoreIndex: scoreIndex });case 31:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 
     scoreAction = function scoreAction() {var 
 
+
         data, 
+
 
 
 
@@ -91,7 +93,6 @@
 
 
 
-
         model, 
 
         info, 
@@ -99,7 +100,7 @@
 
 
 
-        datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();if (data.openid == data.t_openid) {this.success({ status: 1, msg: '不能对自己评分，赶紧分享给好友吧' });}context$2$0.next = 4;return _regeneratorRuntime.awrap(this.session("userInfo"));case 4:currentUser = context$2$0.sent;openid = data.openid;;console.log('id=================' + currentUser);console.log(data);if (!openid) {this.success({ 'status': 1, msg: '您还未登陆' });}context$2$0.next = 12;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 12:if (context$2$0.sent) {context$2$0.next = 14;break;}this.fail('参数不正确');case 14:model = this.model('user');if (!data.type) {context$2$0.next = 22;break;}context$2$0.next = 18;return _regeneratorRuntime.awrap(model.where({ user_pass: openid }).find());case 18:info = context$2$0.sent;data.score += info.user_score;context$2$0.next = 32;break;case 22:context$2$0.next = 24;return _regeneratorRuntime.awrap(model.where({ 
+        datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();console.log(data);if (data.openid == data.t_openid) {this.success({ status: 2, msg: '不能对自己评分，赶紧分享给好友吧' });}context$2$0.next = 5;return _regeneratorRuntime.awrap(this.session("userInfo"));case 5:currentUser = context$2$0.sent;openid = data.openid;;console.log('id=================' + openid);if (!openid) {this.success({ 'status': 1, msg: '您还未登陆' });}context$2$0.next = 12;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 12:if (context$2$0.sent) {context$2$0.next = 14;break;}this.fail('参数不正确');case 14:model = this.model('user');if (!data.type) {context$2$0.next = 22;break;}context$2$0.next = 18;return _regeneratorRuntime.awrap(model.where({ user_pass: openid }).find());case 18:info = context$2$0.sent;data.score += info.user_score;context$2$0.next = 32;break;case 22:context$2$0.next = 24;return _regeneratorRuntime.awrap(model.where({ 
                         user_pass: openid }).
                     find());case 24:datas = context$2$0.sent;
 
@@ -148,7 +149,7 @@
 
 
 
-        info;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();self = this;client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');getAccessToken = think.promisify(client.getAccessToken, client);context$2$0.next = 6;return _regeneratorRuntime.awrap(getAccessToken(data.code));case 6:result = context$2$0.sent;accessToken = result.data.access_token;openid = result.data.openid;getUser = think.promisify(client.getUser, client);context$2$0.next = 12;return _regeneratorRuntime.awrap(getUser(openid));case 12:userInfo = context$2$0.sent;console.log(userInfo);model = self.model('user');context$2$0.next = 17;return _regeneratorRuntime.awrap(model.where({ 'user_pass': userInfo.openid }).find());case 17:res = context$2$0.sent;if (!res.id) {insertId = model.add({ user_name: userInfo.nickname, user_pass: userInfo.openid, user_avatar: userInfo.headimgurl });}context$2$0.next = 21;return _regeneratorRuntime.awrap(this.session('userInfo', userInfo));case 21:context$2$0.next = 23;return _regeneratorRuntime.awrap(self.session('userInfo'));case 23:info = context$2$0.sent;
+        info;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();self = this;client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');getAccessToken = think.promisify(client.getAccessToken, client);context$2$0.next = 6;return _regeneratorRuntime.awrap(getAccessToken(data.code));case 6:result = context$2$0.sent;accessToken = result.data.access_token;openid = result.data.openid;getUser = think.promisify(client.getUser, client);context$2$0.next = 12;return _regeneratorRuntime.awrap(getUser(openid));case 12:userInfo = context$2$0.sent;console.log(userInfo);model = self.model('user');context$2$0.next = 17;return _regeneratorRuntime.awrap(model.where({ 'user_pass': userInfo.openid }).find());case 17:res = context$2$0.sent;if (!res.id && userInfo.openid) {insertId = model.add({ user_name: userInfo.nickname, user_pass: userInfo.openid, user_avatar: userInfo.headimgurl });}context$2$0.next = 21;return _regeneratorRuntime.awrap(this.session('userInfo', userInfo));case 21:context$2$0.next = 23;return _regeneratorRuntime.awrap(self.session('userInfo'));case 23:info = context$2$0.sent;
                     if (data.openid) {
                         this.redirect('http://www.7758a.com/grade-comments.html?userInfo=' + info.openid);} else 
                     {

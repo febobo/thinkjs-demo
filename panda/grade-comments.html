@@ -1,86 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="Cache-Control" content="max-age=0">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<title>熊猫妹</title>
-	<link rel="stylesheet" href="css/style.css">
-	<script type="text/javascript" src="js/zepto.js"></script>
-	<script type="text/javascript" src="js/style.js"></script>
+    <title>熊猫妹SPA眼罩</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/zepto.js"></script>
+    <script type="text/javascript" src="js/style.js"></script>
 </head>
 <body>
-	<section class="loadBg gradePage">
-		<div class="ranking">
-			<img src="img/gradeTitle.png" class="rankingImg rankingImg2">
-			<div class="rule gradeMark">
-				<div class="gradeRanking">
-					<img src="img/man.png" class="rankMan">
-					<span class="gradeName"></span>
-				</div>
-				<span class="redFont gradeComment">我正在参加“熊猫妹SPA眼罩”体验官面试，评论我为我加分吧！</span>
-			</div>
-			<ul class="scoreArea">
-				<li data-scroe="">高富帅</li>
-				<li data-scroe="">萝莉</li>
-				<li data-scroe="">天然呆</li>
-				<li data-scroe="">怪蜀黍</li>
-				<li data-scroe="">御姐</li>
-				<li data-scroe="">丑萌</li>
-				<li data-scroe="">暖男</li>
-				<li data-scroe="">白富美</li>
-				<li data-scroe="">屌丝</li>
-				<li data-scroe="">女汉纸</li>
-			</ul>	
-			<div class="award award2" id="commentScore">
-				<input type="button" value="提交">
-			</div>	
-		</div>
-	</section>
+    <section class="loadBg gradePage">
+<div>
+<button style="background : red; line-height : 36px;" id="clear">清除缓存，测试用</button>
+</div>
+        <div class="ranking">
+            <img src="img/gradeTitle.png" class="rankingImg rankingImg2">
+            <div class="rule gradeMark">
+                <div class="gradeRanking">
+                    <img src="img/man.png" class="rankMan">
+                    <span class="gradeName"></span>
+                </div>
+                <span class="redFont gradeComment">我正在参加“熊猫妹SPA眼罩”体验官面试，评论我为我加分吧！</span>
+            </div>
+            <ul class="scoreArea">
+                <li data-scroe="">高富帅</li>
+                <li data-scroe="">萝莉</li>
+                <li data-scroe="">天然呆</li>
+                <li data-scroe="">怪蜀黍</li>
+                <li data-scroe="">御姐</li>
+                <li data-scroe="">丑萌</li>
+                <li data-scroe="">暖男</li>
+                <li data-scroe="">白富美</li>
+                <li data-scroe="">屌丝</li>
+                <li data-scroe="">女汉纸</li>
+            </ul>   
+            <div class="award award2" id="commentScore">
+                <input type="button" value="提交">
+            </div>  
+        </div>
+    </section>
 </body>
 </html>
 <script type="text/javascript">
-	$(function(){
+    $(function(){
+        $('#clear').tap(function(){
+            localStorage.removeItem('userInfo')
+            alert('删除缓存成功')
+        })
         var urlVal=window.location.search;
         var t_openid = urlVal.split("?")[1].split("=")[2];
         t_openid =urlVal.split("?")[1].split("=")[1].split('&')[0];
-        var user = JSON.parse(localStorage.getItem('userInfo'));
-        console.log(user)
-        if(user){
-            $('.gradeName').text(user.user_name)
-            $('.rankMan').attr('src' , user.user_avatar)
-        }
+        var user = JSON.parse(localStorage.getItem('userInfo')) || {};
+            ajaxFn("post","/admin/user/info",{"openid" :t_openid},function(data){
+                console.log(data.data.userInfo)
+            t_user = data.data.userInfo;
+            $('.gradeName').text(t_user.user_name)
+            $('.rankMan').attr('src' , t_user.user_avatar)
+            })
 
         $('.scoreArea li').each(function(i){
             $(this).attr('data-scroe' ,Math.floor(Math.random() * (10-5+1) + 5) )
         })
 
-		var comment=0;
-			var count = $(".scoreArea li").tap(function(){
-				var curCom=$(this).attr("data-scroe");
-				if(!$(this).hasClass("current")){
-					$(this).addClass("current");
-					comment+=curCom*1;
-				}else{
-					$(this).removeClass("current");
-					comment-=curCom*1;
-				}
-				return comment;
-			})
-		$("#commentScore").tap(function(){
-			ajaxFn("post","/admin/user/score",{"score" :comment,"type" : 1 , "openid" : user.user_pass , "t_openid" : t_openid},function(data){
-                if(data.data && data.data.status == 1){
-                    return alert(data.data.msg)
+        var comment=0;
+            var count = $(".scoreArea li").tap(function(){
+                // var curCom=$(this).attr("data-scroe");
+                // if(!$(this).hasClass("current")){
+                //  $(this).addClass("current");
+                //  comment+=curCom*1;
+                // }else{
+                //  $(this).removeClass("current");
+                //  comment-=curCom*1;
+                // }
+                // return comment;
+                $(this).addClass('current').siblings().removeClass('current');
+            })
+        var flag ;
+        $("#commentScore").tap(function(){
+            $(".scoreArea li").each(function(){
+                if($(this).hasClass('current')){
+                    flag = true;
+                    comment = $(this).attr('data-scroe')
+                    console.log(comment ,1 )
                 }
-				window.location.href="grade-success.html?scroe="+comment;
-			})
-		})
+                
+            })
+            if(!flag){
+                return alert('请至少选择一个进行评分')
+            }
+            ajaxFn("post","/admin/user/score",{"score" :comment,"type" : 1 , "openid" : user.user_pass , "t_openid" : t_openid},function(data){
+                if(data.data && data.data.status == 1){
+                    var isConfirm = confirm("登陆后才能为他评分噢")
+                    if(isConfirm){
+                        return  window.location.href="http://www.7758a.com:1234/admin/user/userinfo"
+                    }
+                }else if(data.data && data.data.status == 2){
+                    alert(data.data.msg);
+                }else{
+                    window.location.href="grade-success.html?scroe="+comment;
+                }
+                
+            })
+        })
 
-	})
+    })
 </script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/share.js"></script>
+
 
 
 

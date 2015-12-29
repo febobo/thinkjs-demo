@@ -40,24 +40,20 @@
 		}
 	}
 
-    var userinfo;
+    var userinfo = JSON.parse(localStorage.getItem('userInfo'));
+    if(userinfo){
+        var openid = userinfo.user_pass;
+    }
 	$(".answerBox:eq(6)").tap(function(){
-		ajaxFn("post","/admin/user/score",{"score" :total , openid : userinfo.user_pass },function(data){
+		ajaxFn("post","/admin/user/score",{"score" :total , openid : openid},function(data){
             if(data.data.status == 1){
 		       window.location.href="http://www.7758a.com:1234/admin/user/userinfo?openid=" + userinfo.user_pass;
             }else if(data.data.status == 100){
-               alert('您已经答过题，快去分享给好友评分吧')
+               window.location.href = "grade-page.html?openid=" + openid;
             }else{
 		       window.location.href="answer-complete.html?scroe="+total + "&openid=" + userinfo.user_pass;
             }
 		})
-	})
-    ajaxFn("post","/admin/user/info",{"score" :total},function(data){
-        console.log(data.data.userInfo)
-        if(data && data.data){
-            userinfo = data.data.userInfo;
-            localStorage.setItem('userInfo' , JSON.stringify(data.data.userInfo));
-        }
 	})
 
 

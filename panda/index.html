@@ -1,45 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="Cache-Control" content="max-age=0">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<title>Document</title>
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/move.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/move.css">
 </head>
 <body>
-	<section class="mainPage mainPage2">
-		<a href="grade-rule.html"><span class="question"></span></a>
-		<img src="img/activity.png" alt="" width="96%">
-		<div class="towns">
-			<img src="img/towns.png" alt="" width="100%">
-			<a href="answer-page.html">
-				<input type="button" class="btnTown" value="我要当体验官">
-			</a>
-			<span>天津国际生物医药联合研究院研制<br><i>天津博森生物科技发展有限公司出品</i></span>
-		</div>
-	</section>
-	<section class="loadBg mask3">
-		<img src="img/loading.png" class="fadeIn" style="-webkit-animation-duration:3s;
-	animation-duration:3s;" alt="" width="37%">
-	</section>
+    <section class="mainPage mainPage2">
+        <a href="grade-rule.html"><span class="question"></span></a>
+        <img src="img/activity.png" alt="" width="96%">
+        <div class="towns">
+            <img src="img/towns.png" alt="" width="100%">
+            <a id="link">
+                <input type="button" class="btnTown" value="我要当体验官">
+            </a>
+            <span>天津国际生物医药联合研究院研制<br><i>天津博森生物科技发展有限公司出品</i></span>
+        </div>
+    </section>
+    <section class="loadBg mask3">
+        <img src="img/loading.png" class="fadeIn" style="-webkit-animation-duration:3s;
+    animation-duration:3s;" alt="" width="37%">
+    </section>
 </body>
 </html>
 <script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/style.js"></script>
 <script type="text/javascript">
-	$(function(){
-		setTimeout(function(){
-			$(".mask3").addClass("fadeOut");
-		},1000);
-		setTimeout(function(){
-			$(".mask3").addClass("fadeOut2");
-		},3000);
-		setTimeout(function(){
-			$(".mainPage2").addClass("fadeIn");
-		},1800);
-	})
+    $(function(){
+        setTimeout(function(){
+            $(".mask3").addClass("fadeOut");
+        },1000);
+        setTimeout(function(){
+            $(".mask3").addClass("fadeOut2");
+        },3000);
+        setTimeout(function(){
+            $(".mainPage2").addClass("fadeIn");
+        },1800);
+    })
+    var urlVal=window.location.search;
+    urlVal=urlVal.split("?")[1].split("=")[1];
+    ajaxFn("post","/admin/user/info",{"openid" :urlVal},function(data){
+        console.log(data.data.userInfo)
+        if(data && data.data){
+            userinfo = data.data.userInfo;
+            localStorage.setItem('userInfo' , JSON.stringify(data.data.userInfo));
+
+    $('#link').tap(function(){
+        window.location.href = "answer-page.html?openid=" + userinfo.user_pass; 
+    })
+        }
+    })
 </script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/share.js"></script>
+

@@ -24,15 +24,13 @@ $(function(){
 	//获取我的排名
 	$(".myRanking").tap(function(){
 		ajaxFn("post","/admin/user/myresult",{openid : openid},function(data){
-            if(data.data.status == 100){
-
+            if(data.data.status == 1){
 			$('.popUp').empty();
 			var noName="<span>您还没有参加活动，快点来参加吧！</span><input type='button' value='我也要拿6S' class='joinBtn'>"
 			$('.popUp').append(noName);
 			$("#mask1").show();
 
             }else{
-
 			var data=data.data;
 			var curRanking="";
 			curRanking="<i class='redFont'>第"+data.scoreIndex+"名&nbsp;&nbsp;&nbsp;"+data.userInfo.user_score+"分</i>"
@@ -49,7 +47,7 @@ $(function(){
 	});
 	
 	$(".award").tap(function(){
-		$("#mask2").show();
+        window.location.href="http://www.7758a.com:1234/admin/user/userinfo"
 	});
 	//获取我的排名点击关闭按钮重置
 	$(".close").tap(function(){
@@ -60,7 +58,7 @@ $(function(){
 
 	//您还没有参加活动，快点来参加吧点击我也要领取6s
 	$(".popUp").on("tap",".joinBtn",function(){
-		alert("暂时不知道要走哪一步");
+        window.location.href="http://www.7758a.com:1234/admin/user/userinfo";
 	})
 	
 })

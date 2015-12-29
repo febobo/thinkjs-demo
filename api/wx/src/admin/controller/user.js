@@ -10,23 +10,22 @@ export default class extends Base {
      */
     async infoAction() {
         let data = this.post();
-        let openid = data.openid || 'obdPat4vBB1mFcd9ql_5PtYjRScA';
+        let openid = data.openid;
         let model = this.model('user');
         let info = await model.where({
             "user_pass": openid
         }).find();
 
-        this.session('userInfo' , '131313')
+        await this.session('userInfo' , '131313')
+
         if (info.user_pass) {
             await this.session('userInfo' , info)
             return this.success({
                 userInfo: info
             });
         }
-        this.action('user','/admin/user/userinfo')
-        this.success({
-            userinfo: userInfo
-        })
+        
+        this.success('个人信息获取成功')
     }
 
     async listAction() {
@@ -48,7 +47,7 @@ export default class extends Base {
     async myresultAction() {
         let datas = this.post();
         console.log(datas)
-        if(datas.openid){
+        if(!datas.openid){
             this.success({
                 status: 1,
                 msg : '还未参与活动'
@@ -56,12 +55,13 @@ export default class extends Base {
         }
 
         let model = this.model("user");
+        let user = await model.where({user_pass : datas.openid}).find();
         let data = await model.order({
             user_score: 'desc'
         }).fieldReverse('user_pass').select();
         let scoreIndex, userInfo;
         for (let [k, item] of data.entries()) {
-            if (item.user_pass == datas.openid) {
+            if (item.id == user.id) {
                 scoreIndex = k + 1;
                 userInfo = item;
                 break;
@@ -76,17 +76,18 @@ export default class extends Base {
 
     async scoreAction() {
 
+
         let data = this.post();
+console.log(data);
         if(data.openid == data.t_openid){
             this.success({
-                status : 1,
+                status : 2,
                 msg : '不能对自己评分，赶紧分享给好友吧'
             })
         }
         let currentUser = await this.session("userInfo");
         let openid = data.openid;;
-console.log('id=================' + currentUser)
-console.log(data)
+console.log('id=================' + openid)
         if(!openid){
             this.success({'status' : 1 , msg : '您还未登陆'})
         }
@@ -139,7 +140,7 @@ console.log(datas)
         let res = await model.where({
             'user_pass': userInfo.openid
         }).find();
-        if (!res.id) {
+        if (!res.id && userInfo.openid) {
             let insertId = model.add({
                 user_name: userInfo.nickname,
                 user_pass: userInfo.openid,

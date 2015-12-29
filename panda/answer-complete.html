@@ -7,7 +7,7 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<title>Document</title>
+	<title>熊猫妹SPA眼罩</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/move.css">
 	<script type="text/javascript" src="js/zepto.js"></script>
@@ -43,53 +43,17 @@
 	</section>
 </body>
 </html>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript" src="js/answer.js"></script>
 <script type="text/javascript">
 $(function(){
+    var urlVal=window.location.search;
+    urlVal=urlVal.split("?")[1].split("=")[1].split('&')[0];
 	timeFadeIn($(".answerBox:eq(1)"),800);
-	var urlVal=window.location.search;
-    var openid = urlVal.split("?")[1].split("=")[2];
-	urlVal=urlVal.split("?")[1].split("=")[1].split('&')[0];
 	$(".session2 > span").text("恭喜您获得"+urlVal+"分");
 	$(".commentBtn").tap(function(){
 		$(".shareMask").addClass("fadeIn")
 	})
-	ajaxFn("post","/admin/sdk/sdkconfig",{"score" :total},function(data){
-		console.log(data)
-		var r = data.data;
-		// 配置微信JS-SDK
-	    wx.config({
-	        debug: false,
-	        appId: r.appId,
-	        timestamp: r.timestamp,
-	        nonceStr: r.nonceStr,
-	        signature: r.signature,
-	        jsApiList: [
-	            'checkJsApi',
-	            'onMenuShareTimeline',
-	            'onMenuShareAppMessage',
-	            'onMenuShareQQ',
-	            'onMenuShareWeibo',
-	            'hideMenuItems',
-	            'chooseImage'
-	        ]
-	    });
-	        // 调用微信API
-	    wx.ready(function() {
-	        var sdata = {
-	            title: '熊猫妹送6s啦',
-	            desc: '急急急!!小伙伴们快来帮我评分啦',
-	            link: 'http://www.7758a.com/grade-comments.html?openid=' + openid ,
-                imgUrl : 'http://www.7758a.com/img/activity.png',
-	            success: function() {
-	            },
-	            cancel: function() {
-	            }
-	        };
-	        wx.onMenuShareTimeline(sdata);
-	        wx.onMenuShareAppMessage(sdata);
-	    });
-	})
 })
 </script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/share.js"></script>
