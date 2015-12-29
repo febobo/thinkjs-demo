@@ -15,8 +15,10 @@ export default class extends Base {
         let info = await model.where({
             "user_pass": openid
         }).find();
+
+        this.session('userInfo' , '131313')
         if (info.user_pass) {
-            this.session('userInfo' , info)
+            await this.session('userInfo' , info)
             return this.success({
                 userInfo: info
             });
@@ -44,14 +46,22 @@ export default class extends Base {
     }
 
     async myresultAction() {
+        let datas = this.post();
+        console.log(datas)
+        if(datas.openid){
+            this.success({
+                status: 1,
+                msg : '还未参与活动'
+            })
+        }
+
         let model = this.model("user");
         let data = await model.order({
             user_score: 'desc'
         }).fieldReverse('user_pass').select();
-
         let scoreIndex, userInfo;
         for (let [k, item] of data.entries()) {
-            if (item.id == 50) {
+            if (item.user_pass == datas.openid) {
                 scoreIndex = k + 1;
                 userInfo = item;
                 break;
@@ -67,10 +77,17 @@ export default class extends Base {
     async scoreAction() {
 
         let data = this.post();
-
+        if(data.openid == data.t_openid){
+            this.success({
+                status : 1,
+                msg : '不能对自己评分，赶紧分享给好友吧'
+            })
+        }
         let currentUser = await this.session("userInfo");
-        let openid = currentUser && currentUser.user_pass;
-        if(!currentUser){
+        let openid = data.openid;;
+console.log('id=================' + currentUser)
+console.log(data)
+        if(!openid){
             this.success({'status' : 1 , msg : '您还未登陆'})
         }
 
@@ -84,8 +101,10 @@ export default class extends Base {
         }else{
             let datas = await model.where({
                 user_pass: openid
-            })
-            if(datas.user_pass != 0){
+            }).find();
+
+console.log(datas)
+            if(datas.user_score != 0){
                 this.success({
                     status : 100,
                     msg : '您已经答过题了,快去分享给好友评分吧'
@@ -113,17 +132,18 @@ export default class extends Base {
 
         let getUser = think.promisify(client.getUser, client);
         let userInfo = await getUser(openid);
+        console.log(userInfo)
 
         let model = self.model('user');
 
-        let res = model.where({
+        let res = await model.where({
             'user_pass': userInfo.openid
         }).find();
         if (!res.id) {
             let insertId = model.add({
-                user_name: result.nickname,
-                user_pass: result.openid,
-                user_avatar: result.headimgurl
+                user_name: userInfo.nickname,
+                user_pass: userInfo.openid,
+                user_avatar: userInfo.headimgurl
             });
         }
 
@@ -153,3 +173,4 @@ export default class extends Base {
     }
 
 }
+
