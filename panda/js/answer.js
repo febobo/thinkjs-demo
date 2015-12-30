@@ -22,11 +22,11 @@
             var allGrade=$(radios[i]).attr("data-grade");
             total = (function(i){
                 radios[i].onclick=function(){
-                    $(radios[i]).addClass('on');
+                    $(radios[i]).parent().addClass('on');
                     var curGrade=$(radios[i]).attr("data-grade");
                     if($(radios[i]).is(":checked")){
                         total+=curGrade*1;
-                        $(radios[i]).attr("disabled","true").parent().siblings().find("input").attr("disabled","true");
+                        $(radios[i]).attr("disabled","true").parent().parent().siblings().find("input").attr("disabled","true");
                         if(curGrade=="20"){
                             $(fatherBox).next().find(".session>span").text(arr[Math.floor(Math.random() * (3-1) + 1)]);
                             timeFadeIn($(fatherBox).next(),1000);

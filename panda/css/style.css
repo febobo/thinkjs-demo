@@ -1,6 +1,6 @@
 html,body{height:100%; }html{font-size:100%; font-family: "Microsoft YaHei", "微软雅黑", Arial, Verdana, serif;}html,body,div,form,p,ul,ol,li,h1,h2,h3,h4,figure{margin:0;padding:0;-webkit-margin-before:0;-webkit-margin-after:0; list-style: none;color: #2c1907;}body{-webkit-text-size-adjust:none;-webkit-user-select:none;-webkit-touch-callout:none;}
 i{font-style: normal;}
-input,button{outline: none;border: none;-webkit-appearance: none; appearance: none;font-family: "Microsoft YaHei", "微软雅黑", Arial, Verdana, serif;}
+input,button{outline: none;color: #2c1907;border: none;-webkit-appearance: none; appearance: none;font-family: "Microsoft YaHei", "微软雅黑", Arial, Verdana, serif;}
 .mainPage,.loadBg{
     width: 100%;
     height: 100%;
@@ -112,8 +112,7 @@ input,button{outline: none;border: none;-webkit-appearance: none; appearance: no
     overflow: hidden;
     padding-top: 15px;
 }
-
-.session input[type=radio]{
+.pay_list_c1 {
 width: 15px;
 height: 15px;
 float: left;
@@ -123,11 +122,32 @@ background-image: url(../img/icon1.png);
 background-repeat: no-repeat;
 background-position: 0 0;
 background-size: 100%;
+    margin-top: 3px;
+    margin-right: 3px;
 }
-
-.session input[type=radio].on{
+/*.session input[type=radio]{
+width: 15px;
+height: 15px;
+float: left;
+cursor: pointer;
+text-align: center;
+background-image: url(../img/icon1.png);
+background-repeat: no-repeat;
+background-position: 0 0;
+background-size: 100%;
+}*/
+.session input[type=radio] {
+opacity: 0;
+cursor: pointer;
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+filter: alpha(opacity=0);
+}
+.on {
 background-image: url(../img/icon2.png);
 }
+/*.session input[type=radio].on{
+background-image: url(../img/icon2.png);
+}*/
 /*.session input[type=radio]{
     float: left;
     width: 15px;
