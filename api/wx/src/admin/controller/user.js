@@ -27,6 +27,11 @@ export default class extends Base {
         
         this.success('个人信息获取成功')
     }
+    async tjAction() {
+        let countModel = await this.model('count');
+        let data = await countModel.where({id : 1}).find();
+        this.success(data);
+    }
 
     async listAction() {
         let data = this.post();
@@ -87,7 +92,6 @@ console.log(data);
         }
         let currentUser = await this.session("userInfo");
         let openid = data.openid;;
-console.log('id=================' + openid)
         if(!openid){
             this.success({'status' : 1 , msg : '您还未登陆'})
         }
@@ -95,6 +99,10 @@ console.log('id=================' + openid)
         if (!await think.isNumber(data.score * 1)) this.fail('参数不正确');
         let model = this.model('user');
         if (data.type) {
+            let countModel = await this.model('count');
+            //let count = await countModel.add({view_count : 0 , comments_count : 0 , join_count : 0});
+            let tj = await countModel.where({id : 1 }).find();
+            await countModel.where({id : 1 }).update({comments_count : ++tj.comments_count  });
             let info = await model.where({
                 user_pass: openid
             }).find();
@@ -104,7 +112,6 @@ console.log('id=================' + openid)
                 user_pass: openid
             }).find();
 
-console.log(datas)
             if(datas.user_score != 0){
                 this.success({
                     status : 100,
@@ -141,6 +148,11 @@ console.log(datas)
             'user_pass': userInfo.openid
         }).find();
         if (!res.id && userInfo.openid) {
+
+        let countModel = await this.model('count');
+        //let count = await countModel.add({view_count : 0 , comments_count : 0 , join_count : 0});
+        let tj = await countModel.where({id : 1 }).find();
+        await countModel.where({id : 1 }).update({view_count : ++tj.view_count  });
             let insertId = model.add({
                 user_name: userInfo.nickname,
                 user_pass: userInfo.openid,

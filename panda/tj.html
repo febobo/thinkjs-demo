@@ -1,0 +1,57 @@
+<DCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="max-age=0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>熊猫妹统计</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/zepto.js"></script>
+    <script type="text/javascript" src="js/style.js"></script>
+
+</head>
+<body>
+    <section class="loadBg gradePage">
+        <h1>熊猫妹统计</h1>
+        <table>
+        <thead>
+                    <tr>
+            <th>总浏览</th>
+            <th>总参与</th>
+            <th>总评论</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            <tr>
+                <td ><span class="viewCount"></span></td>
+                <td ><span class="joinCount"></span></td>
+                <td ><span class="commentCount"></span></td>
+            </tr>
+        </tbody>
+                </table>
+    </section>
+</body>
+</html>
+<style type="text/css">
+    table{width: 100%;}
+    table th{ width: 33%;}
+    table tr td{ width: 33%; text-align: center;}
+</style>
+<script type="text/javascript">
+    ajaxFn("post","/admin/user/tj",{},function(data){
+        if(data){
+            data = data.data;
+        }
+        $('.viewCount').text(data.join_count)
+        $('.joinCount').text(data.view_count)
+        $('.commentCount').text(data.comments_count)
+        
+    })  
+</script>
+
+

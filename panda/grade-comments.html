@@ -94,10 +94,10 @@
             }
             ajaxFn("post","/admin/user/score",{"score" :comment,"type" : 1 , "openid" : user.user_pass , "t_openid" : t_openid},function(data){
                 if(data.data && data.data.status == 1){
-                    var isConfirm = confirm("登陆后才能为他评分噢")
-                    if(isConfirm){
+                  //  var isConfirm = confirm("登陆后才能为他评分噢")
+                   // if(isConfirm){
                         return  window.location.href="http://www.7758a.com:1234/admin/user/userinfo"
-                    }
+                   // }
                 }else if(data.data && data.data.status == 2){
                     alert(data.data.msg);
                 }else{

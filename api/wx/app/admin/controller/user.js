@@ -27,6 +27,11 @@
 
                     this.success('个人信息获取成功');case 13:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
+    tjAction = function tjAction() {var 
+        countModel, 
+        data;return _regeneratorRuntime.async(function tjAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:context$2$0.next = 2;return _regeneratorRuntime.awrap(this.model('count'));case 2:countModel = context$2$0.sent;context$2$0.next = 5;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).find());case 5:data = context$2$0.sent;
+                    this.success(data);case 7:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+
 
     listAction = function listAction() {var 
         data, 
@@ -92,33 +97,35 @@
 
 
 
-
         model, 
+
+        countModel, 
+
+        tj, 
 
         info, 
 
 
 
 
-        datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();console.log(data);if (data.openid == data.t_openid) {this.success({ status: 2, msg: '不能对自己评分，赶紧分享给好友吧' });}context$2$0.next = 5;return _regeneratorRuntime.awrap(this.session("userInfo"));case 5:currentUser = context$2$0.sent;openid = data.openid;;console.log('id=================' + openid);if (!openid) {this.success({ 'status': 1, msg: '您还未登陆' });}context$2$0.next = 12;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 12:if (context$2$0.sent) {context$2$0.next = 14;break;}this.fail('参数不正确');case 14:model = this.model('user');if (!data.type) {context$2$0.next = 22;break;}context$2$0.next = 18;return _regeneratorRuntime.awrap(model.where({ user_pass: openid }).find());case 18:info = context$2$0.sent;data.score += info.user_score;context$2$0.next = 32;break;case 22:context$2$0.next = 24;return _regeneratorRuntime.awrap(model.where({ 
+        datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();console.log(data);if (data.openid == data.t_openid) {this.success({ status: 2, msg: '不能对自己评分，赶紧分享给好友吧' });}context$2$0.next = 5;return _regeneratorRuntime.awrap(this.session("userInfo"));case 5:currentUser = context$2$0.sent;openid = data.openid;;if (!openid) {this.success({ 'status': 1, msg: '您还未登陆' });}context$2$0.next = 11;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 11:if (context$2$0.sent) {context$2$0.next = 13;break;}this.fail('参数不正确');case 13:model = this.model('user');if (!data.type) {context$2$0.next = 29;break;}context$2$0.next = 17;return _regeneratorRuntime.awrap(this.model('count'));case 17:countModel = context$2$0.sent;context$2$0.next = 20;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).find());case 20:tj = context$2$0.sent;context$2$0.next = 23;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).update({ comments_count: ++tj.comments_count }));case 23:context$2$0.next = 25;return _regeneratorRuntime.awrap(model.where({ user_pass: openid }).find());case 25:info = context$2$0.sent;data.score += info.user_score;context$2$0.next = 38;break;case 29:context$2$0.next = 31;return _regeneratorRuntime.awrap(model.where({ 
                         user_pass: openid }).
-                    find());case 24:datas = context$2$0.sent;
+                    find());case 31:datas = context$2$0.sent;if (!(
 
-                    console.log(datas);if (!(
-                    datas.user_score != 0)) {context$2$0.next = 30;break;}
+                    datas.user_score != 0)) {context$2$0.next = 36;break;}
                     this.success({ 
                         status: 100, 
-                        msg: '您已经答过题了,快去分享给好友评分吧' });context$2$0.next = 32;break;case 30:context$2$0.next = 32;return _regeneratorRuntime.awrap(
+                        msg: '您已经答过题了,快去分享给好友评分吧' });context$2$0.next = 38;break;case 36:context$2$0.next = 38;return _regeneratorRuntime.awrap(
 
 
                     model.where({ 
                         user_pass: openid }).
                     update({ 
-                        user_score: data.score }));case 32:
+                        user_score: data.score }));case 38:
 
 
 
-                    this.success('记分成功');case 33:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+                    this.success('记分成功');case 39:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
     getcodeAction = function getcodeAction() {var 
@@ -141,6 +148,11 @@
 
 
 
+
+        countModel, 
+
+        tj, 
+
         insertId, 
 
 
@@ -149,14 +161,14 @@
 
 
 
-        info;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();self = this;client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');getAccessToken = think.promisify(client.getAccessToken, client);context$2$0.next = 6;return _regeneratorRuntime.awrap(getAccessToken(data.code));case 6:result = context$2$0.sent;accessToken = result.data.access_token;openid = result.data.openid;getUser = think.promisify(client.getUser, client);context$2$0.next = 12;return _regeneratorRuntime.awrap(getUser(openid));case 12:userInfo = context$2$0.sent;console.log(userInfo);model = self.model('user');context$2$0.next = 17;return _regeneratorRuntime.awrap(model.where({ 'user_pass': userInfo.openid }).find());case 17:res = context$2$0.sent;if (!res.id && userInfo.openid) {insertId = model.add({ user_name: userInfo.nickname, user_pass: userInfo.openid, user_avatar: userInfo.headimgurl });}context$2$0.next = 21;return _regeneratorRuntime.awrap(this.session('userInfo', userInfo));case 21:context$2$0.next = 23;return _regeneratorRuntime.awrap(self.session('userInfo'));case 23:info = context$2$0.sent;
+        info;return _regeneratorRuntime.async(function getcodeAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.get();self = this;client = new _wechatOauth2["default"]('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');getAccessToken = think.promisify(client.getAccessToken, client);context$2$0.next = 6;return _regeneratorRuntime.awrap(getAccessToken(data.code));case 6:result = context$2$0.sent;accessToken = result.data.access_token;openid = result.data.openid;getUser = think.promisify(client.getUser, client);context$2$0.next = 12;return _regeneratorRuntime.awrap(getUser(openid));case 12:userInfo = context$2$0.sent;console.log(userInfo);model = self.model('user');context$2$0.next = 17;return _regeneratorRuntime.awrap(model.where({ 'user_pass': userInfo.openid }).find());case 17:res = context$2$0.sent;if (!(!res.id && userInfo.openid)) {context$2$0.next = 28;break;}context$2$0.next = 21;return _regeneratorRuntime.awrap(this.model('count'));case 21:countModel = context$2$0.sent;context$2$0.next = 24;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).find());case 24:tj = context$2$0.sent;context$2$0.next = 27;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).update({ view_count: ++tj.view_count }));case 27:insertId = model.add({ user_name: userInfo.nickname, user_pass: userInfo.openid, user_avatar: userInfo.headimgurl });case 28:context$2$0.next = 30;return _regeneratorRuntime.awrap(this.session('userInfo', userInfo));case 30:context$2$0.next = 32;return _regeneratorRuntime.awrap(self.session('userInfo'));case 32:info = context$2$0.sent;
                     if (data.openid) {
                         this.redirect('http://www.7758a.com/grade-comments.html?userInfo=' + info.openid);} else 
                     {
                         this.redirect('http://www.7758a.com?userInfo=' + info.openid);}
 
                     this.success({ 
-                        userinfo: userInfo });case 26:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+                        userinfo: userInfo });case 35:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
 
@@ -170,4 +182,6 @@
 
                     this.redirect(url);
                     // this.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9f3f09b145491ade&redirect_uri=http://www.7758a.com/&response_type=code&scope=snsapi_base&state=123#wechat_redirect')
-                    this.success(url);case 6:case "end":return context$2$0.stop();}}, null, this);};return _default;})(_baseJs2["default"]);exports["default"] = _default;module.exports = exports["default"]; //    let client = new OAuth('wx9f3f09b145491ade', '88e31eaf4afeadbffae3a34c8363bd6a');
+                    this.success(url);case 6:case "end":return context$2$0.stop();}}, null, this);};return _default;})(_baseJs2["default"]);exports["default"] = _default;module.exports = exports["default"]; //let count = await countModel.add({view_count : 0 , comments_count : 0 , join_count : 0});
+//let count = await countModel.add({view_count : 0 , comments_count : 0 , join_count : 0});
+//    let client = new OAuth('wx9f3f09b145491ade', '88e31eaf4afeadbffae3a34c8363bd6a');
