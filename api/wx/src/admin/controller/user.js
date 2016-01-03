@@ -51,9 +51,8 @@ export default class extends Base {
 
     async myresultAction() {
         let datas = this.post();
-        console.log(datas)
         if(!datas.openid){
-            this.success({
+            return this.success({
                 status: 1,
                 msg : '还未参与活动'
             })
@@ -83,37 +82,52 @@ export default class extends Base {
 
 
         let data = this.post();
-console.log(data);
+console.log(data)
+
+        let currentUser = await this.session("userInfo");
+        let openid = data.openid;;
+        if(!openid){
+            return this.success({'status' : 1 , msg : '您还未登陆'})
+        }
         if(data.openid == data.t_openid){
-            this.success({
+            return this.success({
                 status : 2,
                 msg : '不能对自己评分，赶紧分享给好友吧'
             })
         }
-        let currentUser = await this.session("userInfo");
-        let openid = data.openid;;
-        if(!openid){
-            this.success({'status' : 1 , msg : '您还未登陆'})
-        }
-
         if (!await think.isNumber(data.score * 1)) this.fail('参数不正确');
         let model = this.model('user');
         if (data.type) {
+            let commentModel = this.model('comment');
+            let isCommnet = await commentModel.where({user_id : data.openid  , t_userid : data.t_openid}).limit(1).find();
+            if(isCommnet.user_id){
+                return this.success({
+                    status : 3,
+                    msg : '您已经为他评论过了,帮他分享也是爱噢 '
+                })
+            }else{
+                let user = await commentModel.add({user_id : data.openid  , t_userid : data.t_openid});
+            }
             let countModel = await this.model('count');
             //let count = await countModel.add({view_count : 0 , comments_count : 0 , join_count : 0});
             let tj = await countModel.where({id : 1 }).find();
             await countModel.where({id : 1 }).update({comments_count : ++tj.comments_count  });
             let info = await model.where({
-                user_pass: openid
-            }).find();
-            data.score += info.user_score;
+                user_pass: data.t_openid
+            }).find()
+            data.score = (data.score * 1 )  + (info.user_score * 1);
+console.log('====================================' + data.t_openid , data.score)
+            await model.where({user_pass : data.t_openid}).update({
+                    user_score: data.score 
+            });;
+            
         }else{
             let datas = await model.where({
                 user_pass: openid
             }).find();
 
             if(datas.user_score != 0){
-                this.success({
+                return this.success({
                     status : 100,
                     msg : '您已经答过题了,快去分享给好友评分吧'
                 })
@@ -130,6 +144,7 @@ console.log(data);
 
     async getcodeAction() {
         let data = this.get();
+console.log(data)
         let self = this;
         let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
         let getAccessToken = think.promisify(client.getAccessToken, client);
@@ -163,7 +178,7 @@ console.log(data);
         await this.session('userInfo', userInfo);
         let info = await self.session('userInfo');
         if(data.openid){
-            this.redirect('http://www.7758a.com/grade-comments.html?userInfo=' + info.openid)
+            this.redirect('http://www.7758a.com/grade-comments.html?userInfo=' + data.openid + '&info=' + info.openid)
         }else{
             this.redirect('http://www.7758a.com?userInfo=' + info.openid)
         }
@@ -177,6 +192,7 @@ console.log(data);
         let client = new OAuth('wxa0bb7dd833ca89ce', '45fa8e4a422764b13cd2510b76eeed6b');
         let url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/getcode', 'state', 'snsapi_userinfo');
         let data = this.get();
+console.log('=>>>>>>>>>>>>>>>>>>>>' + data)
         if(data.openid){
             url = client.getAuthorizeURL('http://www.7758a.com:1234/admin/user/getcode?openid=' + data.openid , 'state', 'snsapi_userinfo');
         }
@@ -186,4 +202,5 @@ console.log(data);
     }
 
 }
+
 

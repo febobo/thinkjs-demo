@@ -15,7 +15,7 @@
 <body>
     <section class="loadBg gradePage">
 <div>
-<button style="background : red; line-height : 36px;" id="clear">清除缓存，测试用</button>
+<!-- <button style="background : red; line-height : 36px;" id="clear">清除缓存，测试用</button> -->
 </div>
         <div class="ranking">
             <img src="img/gradeTitle.png" class="rankingImg rankingImg2">
@@ -52,9 +52,27 @@
             alert('删除缓存成功')
         })
         var urlVal=window.location.search;
-        var t_openid = urlVal.split("?")[1].split("=")[2];
-        t_openid =urlVal.split("?")[1].split("=")[1].split('&')[0];
+
+        if(urlVal.indexOf('info') >= 0){
+            var openid = urlVal.split("?")[1].split("=")[2].split('&')[0];
+        }
+        var t_openid =urlVal.split("?")[1].split("=")[1].split('&')[0];
+
         var user = JSON.parse(localStorage.getItem('userInfo')) || {};
+        if(!user.user_pass){
+
+        if(openid){
+
+        ajaxFn("post","/admin/user/info",{"openid" :openid},function(data){
+        if(data && data.data){
+            user = data.data.userInfo;
+            localStorage.setItem('userInfo' , JSON.stringify(data.data.userInfo));
+        }
+        })
+        }
+
+        }
+       // alert(t_openid)
             ajaxFn("post","/admin/user/info",{"openid" :t_openid},function(data){
                 console.log(data.data.userInfo)
             t_user = data.data.userInfo;
@@ -96,10 +114,12 @@
                 if(data.data && data.data.status == 1){
                   //  var isConfirm = confirm("登陆后才能为他评分噢")
                    // if(isConfirm){
-                        return  window.location.href="http://www.7758a.com:1234/admin/user/userinfo"
+                        return  window.location.href="http://www.7758a.com:1234/admin/user/userinfo?openid=" + t_openid 
                    // }
                 }else if(data.data && data.data.status == 2){
                     alert(data.data.msg);
+                }else if(data.data && data.data.status == 3){
+                    alert(data.data.msg)
                 }else{
                     window.location.href="grade-success.html?scroe="+comment;
                 }

@@ -13,8 +13,8 @@
     $('input').each(function(){
         $(this).attr('checked' , false)
     })
-    timeFadeIn($(".answerBox:eq(1)"),500);
-    timeFadeIn($(".answerBox:eq(2)"),1000,3);
+    timeFadeIn($(".answerBox:eq(1)"),2000);
+    timeFadeIn($(".answerBox:eq(2)"),4000,3);
     function radioOnly(fatherBox,num){
         var arr = ["哎哟，不错哦" , "不错啊 再接再厉" , "加油,熊猫妹看好你哟"];
         var radios = $(fatherBox).find("input");
@@ -29,16 +29,16 @@
                         $(radios[i]).attr("disabled","true").parent().parent().siblings().find("input").attr("disabled","true");
                         if(curGrade=="20"){
                             $(fatherBox).next().find(".session>span").text(arr[Math.floor(Math.random() * (3-1) + 1)]);
-                            timeFadeIn($(fatherBox).next(),1000);
+                            timeFadeIn($(fatherBox).next(),2000);
                         }else{
                             $(fatherBox).next().find(".session>span").text("你没做功课呀，正确答案是第"+num+"个哦~~");
-                            timeFadeIn($(fatherBox).next(),1000);
+                            timeFadeIn($(fatherBox).next(),2000);
                         }
                     }
                     if($(fatherBox).next().next().index()==4){
-                        timeFadeIn($(fatherBox).next().next(),2000,1);
+                        timeFadeIn($(fatherBox).next().next(),4000,1);
                     }else{
-                        timeFadeIn($(fatherBox).next().next(),2000,1);
+                        timeFadeIn($(fatherBox).next().next(),4000,1);
                     }
                 }
                 return total
@@ -61,7 +61,7 @@
                    window.location.href="answer-complete.html?scroe="+total + "&openid=" + userinfo.user_pass;
                 }
             })
-        }, 2000);
+        }, 3000);
 
     })
 
