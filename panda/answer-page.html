@@ -14,6 +14,16 @@
     <script type="text/javascript" src="js/style.js"></script>
 </head>
 <body style="background-color: #ebebeb">
+    <header class="app-header">
+        <a href="javascript:void(0);" class="u-globalAudio">
+            <audio src="img/a.mp3" preload="preload" autoplay＝"autoplay" loop="" id="audio"></audio>
+            <span></span>
+            <div class="coffee-steam-box"></div>
+        </a>
+        <div class="coffe" style="position: absolute;top: 10px;width: 30px; height: 30px;right: 10px;z-index: 9;">
+            <img src="img/mun.png" width="100%">
+        </div>
+    </header>
     <section class="answerPage">
         <div class="answerBox fadeIn">
             <span class="manHead"><img src="img/man.png" alt="" width="36"></span>
@@ -109,4 +119,28 @@
 <script type="text/javascript" src="js/answer.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript" src="js/share.js"></script>
+<script type="text/javascript">
+$(function(){
+    var myAudio=document.getElementById("audio");
+    $(".answerPage").click(function(){
+        console.log(3)
+        myAudio.play();
+    })
+    var play=true;
+    $(".coffe").click(function(){
+        if(play==true){
+            console.log(1)
+            myAudio.pause()
+            play=false;
+            $(this).find("img").attr('src','img/MUNS.png');
+        }else{ 
+            audio.play();
+            console.log(2)
+            play = true;
+            $(this).find("img").attr('src','img/mun.png');
 
+        }
+    })
+})
+
+</script>
