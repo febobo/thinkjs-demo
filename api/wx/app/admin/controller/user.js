@@ -81,6 +81,11 @@
     scoreAction = function scoreAction() {var 
 
 
+
+
+
+
+
         data, 
 
 
@@ -122,24 +127,24 @@
 
 
 
-        datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:data = this.post();console.log(data);context$2$0.next = 4;return _regeneratorRuntime.awrap(this.session("userInfo"));case 4:currentUser = context$2$0.sent;openid = data.openid;;if (openid) {context$2$0.next = 9;break;}return context$2$0.abrupt("return", this.success({ 'status': 1, msg: '您还未登陆' }));case 9:if (!(data.openid == data.t_openid)) {context$2$0.next = 11;break;}return context$2$0.abrupt("return", this.success({ status: 2, msg: '不能对自己评分，赶紧分享给好友吧' }));case 11:context$2$0.next = 13;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 13:if (context$2$0.sent) {context$2$0.next = 15;break;}this.fail('参数不正确');case 15:model = this.model('user');if (!data.type) {context$2$0.next = 46;break;}commentModel = this.model('comment');context$2$0.next = 20;return _regeneratorRuntime.awrap(commentModel.where({ user_id: data.openid, t_userid: data.t_openid }).limit(1).find());case 20:isCommnet = context$2$0.sent;if (!isCommnet.user_id) {context$2$0.next = 25;break;}return context$2$0.abrupt("return", this.success({ status: 3, msg: '您已经为他评论过了,帮他分享也是爱噢 ' }));case 25:context$2$0.next = 27;return _regeneratorRuntime.awrap(commentModel.add({ user_id: data.openid, t_userid: data.t_openid }));case 27:user = context$2$0.sent;case 28:context$2$0.next = 30;return _regeneratorRuntime.awrap(this.model('count'));case 30:countModel = context$2$0.sent;context$2$0.next = 33;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).find());case 33:tj = context$2$0.sent;context$2$0.next = 36;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).update({ comments_count: ++tj.comments_count }));case 36:context$2$0.next = 38;return _regeneratorRuntime.awrap(model.where({ user_pass: data.t_openid }).find());case 38:info = context$2$0.sent;data.score = data.score * 1 + info.user_score * 1;console.log('====================================' + data.t_openid, data.score);context$2$0.next = 43;return _regeneratorRuntime.awrap(model.where({ user_pass: data.t_openid }).update({ user_score: data.score }));case 43:;context$2$0.next = 55;break;case 46:context$2$0.next = 48;return _regeneratorRuntime.awrap(model.where({ 
+        datas;return _regeneratorRuntime.async(function scoreAction$(context$2$0) {while (1) switch (context$2$0.prev = context$2$0.next) {case 0:if (!(new Date() >= new Date('2016', '00', '22', '12', '00'))) {context$2$0.next = 2;break;}return context$2$0.abrupt("return", this.success({ status: 110, msg: '亲,活动已经结束了噢' }));case 2:data = this.post();console.log(data);context$2$0.next = 6;return _regeneratorRuntime.awrap(this.session("userInfo"));case 6:currentUser = context$2$0.sent;openid = data.openid;;if (openid) {context$2$0.next = 11;break;}return context$2$0.abrupt("return", this.success({ 'status': 1, msg: '您还未登陆' }));case 11:if (!(data.openid == data.t_openid)) {context$2$0.next = 13;break;}return context$2$0.abrupt("return", this.success({ status: 2, msg: '不能对自己评分，赶紧分享给好友吧' }));case 13:context$2$0.next = 15;return _regeneratorRuntime.awrap(think.isNumber(data.score * 1));case 15:if (context$2$0.sent) {context$2$0.next = 17;break;}this.fail('参数不正确');case 17:model = this.model('user');if (!data.type) {context$2$0.next = 48;break;}commentModel = this.model('comment');context$2$0.next = 22;return _regeneratorRuntime.awrap(commentModel.where({ user_id: data.openid, t_userid: data.t_openid }).limit(1).find());case 22:isCommnet = context$2$0.sent;if (!isCommnet.user_id) {context$2$0.next = 27;break;}return context$2$0.abrupt("return", this.success({ status: 3, msg: '您已经为他评论过了,帮他分享也是爱噢 ' }));case 27:context$2$0.next = 29;return _regeneratorRuntime.awrap(commentModel.add({ user_id: data.openid, t_userid: data.t_openid }));case 29:user = context$2$0.sent;case 30:context$2$0.next = 32;return _regeneratorRuntime.awrap(this.model('count'));case 32:countModel = context$2$0.sent;context$2$0.next = 35;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).find());case 35:tj = context$2$0.sent;context$2$0.next = 38;return _regeneratorRuntime.awrap(countModel.where({ id: 1 }).update({ comments_count: ++tj.comments_count }));case 38:context$2$0.next = 40;return _regeneratorRuntime.awrap(model.where({ user_pass: data.t_openid }).find());case 40:info = context$2$0.sent;data.score = data.score * 1 + info.user_score * 1;console.log('====================================' + data.t_openid, data.score);context$2$0.next = 45;return _regeneratorRuntime.awrap(model.where({ user_pass: data.t_openid }).update({ user_score: data.score }));case 45:;context$2$0.next = 57;break;case 48:context$2$0.next = 50;return _regeneratorRuntime.awrap(model.where({ 
                         user_pass: openid }).
-                    find());case 48:datas = context$2$0.sent;if (!(
+                    find());case 50:datas = context$2$0.sent;if (!(
 
-                    datas.user_score != 0)) {context$2$0.next = 53;break;}return context$2$0.abrupt("return", 
+                    datas.user_score != 0)) {context$2$0.next = 55;break;}return context$2$0.abrupt("return", 
                     this.success({ 
                         status: 100, 
-                        msg: '您已经答过题了,快去分享给好友评分吧' }));case 53:context$2$0.next = 55;return _regeneratorRuntime.awrap(
+                        msg: '您已经答过题了,快去分享给好友评分吧' }));case 55:context$2$0.next = 57;return _regeneratorRuntime.awrap(
 
 
                     model.where({ 
                         user_pass: openid }).
                     update({ 
-                        user_score: data.score }));case 55:
+                        user_score: data.score }));case 57:
 
 
 
-                    this.success('记分成功');case 56:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
+                    this.success('记分成功');case 58:case "end":return context$2$0.stop();}}, null, this);};_default.prototype.
 
 
     getcodeAction = function getcodeAction() {var 

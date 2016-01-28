@@ -79,7 +79,12 @@ export default class extends Base {
     }
 
     async scoreAction() {
-
+if(new Date() >= new Date('2016','00','22','12','00')){
+  return this.success({
+    status : 110,
+    msg : '亲,活动已经结束了噢'
+  })
+}
 
         let data = this.post();
 console.log(data)
